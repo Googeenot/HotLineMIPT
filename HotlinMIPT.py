@@ -2,15 +2,17 @@ import pygame
 from collections import defaultdict
 import sys
 import config as c
-import Game
+#import Game
 class HotlineMIPT:
       def __init__(self):
             #print(c.caption)
             pygame.init() 
             pygame.font.init()
             pygame.display.set_caption(c.caption)
-            self.surface = pygame.display.set_mode((c.widht, c.height))
+            self.surface = pygame.display.set_mode((c.widht, c.height),  (pygame.NOFRAME and pygame.FULLSCREEN))
             self.background_image = pygame.image.load(c.back_image_filename)
+            self.surface.blit(self.background_image, (0, 0))
+            pygame.display.update()
             self.frame_rate = c.frame_rate
             self.clock = pygame.time.Clock()
             print(self.clock)
@@ -38,11 +40,17 @@ class HotlineMIPT:
                                 pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers:
                     handler(event.type, event.pos)
-      def zastavka():
+      def zastavka(self):
             pass
-      def menu():
+      def menu(self):
             pass
       def run(self):
-            zastavka()
-            menu()
+            self.zastavka()
+            self.menu()
             
+def main():
+    HotlineMIPT().run()
+
+
+if __name__ == '__main__':
+    main()            

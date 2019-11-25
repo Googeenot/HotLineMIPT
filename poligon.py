@@ -11,6 +11,8 @@ class Poligon(GameObject):
         self.offset = offset
         self.moving_left = False
         self.moving_right = False
+        self.moving_up = False
+        self.moving_down = False
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -18,15 +20,26 @@ class Poligon(GameObject):
     def handle(self, key):
         if key == pygame.K_LEFT:
             self.moving_left = not self.moving_left
-        else:
+        elif key ==pygame.K_RIGHT:
             self.moving_right = not self.moving_right
+        elif key == pygame.K_UP:
+            self.moving_up = not self.moving_up
+        elif key == pygame.K_DOWN:
+            self.moving_down = not self.moving_down
 
     def update(self):
+        dx =0
+        dy =0
         if self.moving_left:
             dx = -5
         elif self.moving_right:
             dx = 5
-        else:
+
+        if self.moving_up:
+            dy = -5
+        elif self.moving_down:
+            dy = 5
+        if not dx and not dy:
             return
 
-        self.move(dx, 0)
+        self.move(dx, dy)

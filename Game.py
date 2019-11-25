@@ -53,16 +53,19 @@ class Game:
         
         self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
+        self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
+        self.keydown_handlers[pygame.K_DOWN].append(poligonn.handle)
         
-        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
-        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
+##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
+##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
+        
         self.objects.append(poligonn)
       def create_objects(self):
             self.create_poligon()
 
       def run(self):
             self.create_objects()
-            self.background_image = pygame.image.load(c.back_image_filename)
+            self.background_image = pygame.image.load(c.fon)
             while not self.game_over:
 
                   self.surface.blit(self.background_image, (0, 0))

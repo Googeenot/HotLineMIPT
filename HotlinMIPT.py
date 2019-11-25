@@ -10,9 +10,7 @@ class HotlineMIPT:
             pygame.font.init()
             pygame.display.set_caption(c.caption)
             self.surface = pygame.display.set_mode((c.widht, c.height),  (pygame.NOFRAME and pygame.FULLSCREEN))
-            self.background_image = pygame.image.load(c.back_image_filename)
-            self.surface.blit(self.background_image, (0, 0))
-            pygame.display.update()
+            
             self.frame_rate = c.frame_rate
             self.clock = pygame.time.Clock()
             print(self.clock)
@@ -42,7 +40,10 @@ class HotlineMIPT:
                 for handler in self.mouse_handlers:
                     handler(event.type, event.pos)
       def zastavka(self):
-            pass
+            self.background_image = pygame.image.load(c.back_image_filename)
+            self.surface.blit(self.background_image, (-420, 0))
+            pygame.display.update()
+            self.clock.tick(0.2)            
       def menu(self):
             Game.Game(self.surface).run()
             pass

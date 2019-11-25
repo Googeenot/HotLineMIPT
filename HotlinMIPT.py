@@ -18,6 +18,7 @@ class HotlineMIPT:
             print(self.clock)
             self.objects = []
             self.clock = pygame.time.Clock()
+
             
             self.keydown_handlers = defaultdict(list)
             self.keyup_handlers = defaultdict(list)

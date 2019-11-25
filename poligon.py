@@ -11,7 +11,6 @@ class Poligon(GameObject):
         self.offset = offset
         self.moving_left = False
         self.moving_right = False
-        print('ffff')
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -24,9 +23,9 @@ class Poligon(GameObject):
 
     def update(self):
         if self.moving_left:
-            dx = -(min(self.offset, self.bounds.left))
+            dx = -5
         elif self.moving_right:
-            dx = min(self.offset, 50 - self.bounds.right)
+            dx = 5
         else:
             return
 

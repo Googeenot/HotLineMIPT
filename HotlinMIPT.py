@@ -2,7 +2,7 @@ import pygame
 from collections import defaultdict
 import sys
 import config as c
-#import Game
+import Game
 class HotlineMIPT:
       def __init__(self):
             #print(c.caption)
@@ -43,6 +43,7 @@ class HotlineMIPT:
       def zastavka(self):
             pass
       def menu(self):
+            Game.Game(self.surface).run()
             pass
       def run(self):
             self.zastavka()

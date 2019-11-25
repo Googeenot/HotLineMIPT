@@ -1,4 +1,6 @@
-import pygame as pg
+import pygame
+import GameObject
+from random import choice, randrange as rnd
 
 
 
@@ -10,20 +12,18 @@ class Weapon():
         pass
 
 
-class Pen(Weapon):
-    def __init__(self):
-        self.r = None
-        self.id = None
+class Pen(GameObject):
+    def __init__(self, x, y, w, h, vel):
+        GameObject.__init__(self, x, y, w, h, vel)
+        self.color = choice('black', 'red')
+        self.velocity = rnd(1, 10)
 
-    def stab(self):
-        self.move()
-        self.hit()
+    def draw(self, surface):
+        pygame.draw.rect(surface, self.color, self.bounds)
 
-    def move(self):
-        pass
+    def update(self):
+        self.move(self.velocity)
 
-    def hit(self):
-        pass
 
 
 class Hands(Weapon):

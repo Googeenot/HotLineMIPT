@@ -34,9 +34,7 @@ class HotlineMIPT:
             elif event.type == pygame.KEYUP:
                 for handler in self.keydown_handlers[event.key]:
                     handler(event.key)
-            elif event.type in (pygame.MOUSEBUTTONDOWN, 
-                                pygame.MOUSEBUTTONUP, 
-                                pygame.MOUSEMOTION):
+            elif event.type in (pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP, pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers:
                     handler(event.type, event.pos)
       def zastavka(self):

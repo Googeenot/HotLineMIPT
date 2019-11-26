@@ -31,15 +31,19 @@ class Poligon(GameObject):
         dx =0
         dy =0
         if self.moving_left:
-            dx = -5
+            dx = -1
         elif self.moving_right:
-            dx = 5
+            dx = 1
 
         if self.moving_up:
-            dy = -5
+            dy = -1
         elif self.moving_down:
-            dy = 5
+            dy = 1
         if not dx and not dy:
             return
+        h = dx
+        dx  /= (1 / c.v) * (dx ** 2 + dy ** 2) ** 0.5
+        dy  /= (1 / c.v) * (h ** 2 + dy ** 2) ** 0.5
+
 
         self.move(dx, dy)

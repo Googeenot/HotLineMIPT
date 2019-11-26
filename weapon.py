@@ -14,8 +14,11 @@ class Pen(GameObject):
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
 
-    def update(self):
-        self.move()
+    def update(self, obj):
+        if pygame.mouse.get_pressed()[0]:
+            self.strike_movement()
+        else:
+            self.move(obj.dx, obj.dy)
 
     def hit_test(self, obj):
         if abs(obj.x - self.x) <= (self.r + obj.r) and abs(obj.y - self.y) <= (self.r + obj.r):
@@ -23,26 +26,27 @@ class Pen(GameObject):
         else:
             return False
 
-    def initialization_of_attack(self, event):
-        if event.button == 1:
-            r = event.pos
-            dx = r[0] - self.x
-            dy = r[1] - self.y
-            movement_vector = (dx, dy)
-            return movement_vector
-        else:
-            pass
+    def initialization_of_attack(self):
+        r = pygame.mouse.get_pos()
+        dx = r[0] - self.x
+        dy = r[1] - self.y
+        movement_vector = (dx, dy)
+        return movement_vector
 
-    def strike_calculations(self, event):
-        mv = self.initialization_of_attack(event)
+
+    def strike_calculations(self):
+        mv = self.initialization_of_attack()
         line_length = (mv[0] ** 2 + mv[1] ** 2) ** 0.5
         cos = mv[0] / line_length
         sin = mv[1] / line_length
         norm_mv = (cos, sin)
         return norm_mv
 
-    def strike_movement(self, event):
-        mv = self.strike_calculations(event)
-        dx = mv[0]
-        dy = mv[1]
-        self.move(dx, dy)
+    def strike_movement(self):
+        if pygame.mouse.get_pressed()[0]:
+            mv = self.strike_calculations()
+            dx = mv[0]
+            dy = mv[1]
+            self.move(dx, dy)
+        else:
+            pass

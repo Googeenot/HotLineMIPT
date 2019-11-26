@@ -8,6 +8,8 @@ class Pen(GameObject):
         self.color = choice('black', 'red')
         self.r = (w ** 2 + h ** 2) ** 0.5
         self.velocity = vel
+        self.x = x
+        self.y = y
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -16,39 +18,22 @@ class Pen(GameObject):
         self.move()
 
     def hit_test(self, obj):
-        if abs(obj.x - self.x) <= (self.r + obj.r) and abs(ob.y - self.y) <= (self.r + obj.r):
+        if abs(obj.x - self.x) <= (self.r + obj.r) and abs(obj.y - self.y) <= (self.r + obj.r):
             return True
         else:
             return False
 
-    def aiming(self):
-        pass
+    def initialization_of_attack(self, event):
+        if event.button == 1:
+            r = event.pos
+            dx = r[0] - self.x
+            dy = r[1] - self.y
+            movement_vector = (dx, dy)
+            return movement_vector
+        else:
+            pass
 
+    def strike(self, event):
+        mv = self.initialization_of_attack(event)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #self.move(mv[0], mv[1])

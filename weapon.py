@@ -33,7 +33,16 @@ class Pen(GameObject):
         else:
             pass
 
-    def strike(self, event):
+    def strike_calculations(self, event):
         mv = self.initialization_of_attack(event)
+        line_length = (mv[0] ** 2 + mv[1] ** 2) ** 0.5
+        cos = mv[0] / line_length
+        sin = mv[1] / line_length
+        norm_mv = (cos, sin)
+        return norm_mv
 
-        #self.move(mv[0], mv[1])
+    def strike_movement(self, event):
+        mv = self.strike_calculations(event)
+        dx = mv[0]
+        dy = mv[1]
+        self.move(dx, dy)

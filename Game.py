@@ -55,7 +55,7 @@ class Game:
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
         self.keydown_handlers[pygame.K_DOWN].append(poligonn.handle)
-        
+        print(self.keydown_handlers)
 ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
 ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
         

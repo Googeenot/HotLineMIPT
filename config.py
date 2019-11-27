@@ -7,4 +7,4 @@ back_image_filename = 'headpiece.png' #изображение на задний 
 frame_rate = 30  #FPS часттат обновления экрана (колличество обновлений в секунду)
 fon  = 'fon.png'
 v=5 #скорость челика
-
+font = 'Arial'

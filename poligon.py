@@ -26,7 +26,6 @@ class Poligon(GameObject):
             self.moving_up = not self.moving_up
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
-
     def update(self):
         dx =0
         dy =0

@@ -10,12 +10,19 @@ class Pen(GameObject):
         self.velocity = vel
         self.x = x
         self.y = y
+        self.mouse_button_pressed = False
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
 
+    def handle(self, key):
+        if key == pygame.MOUSEBUTTONDOWN
+            self.mouse_button_pressed = True
+        else:
+            self.mouse_button_pressed = False
+
     def update(self, obj):
-        if pygame.mouse.get_pressed()[0]:
+        if self.mouse_button_pressed:
             self.strike_movement()
         else:
             self.move(obj.dx, obj.dy)

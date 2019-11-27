@@ -16,7 +16,7 @@ class Pen(GameObject):
         pygame.draw.rect(surface, self.color, self.bounds)
 
     def handle(self, key):
-        if key == pygame.MOUSEBUTTONDOWN
+        if key == pygame.MOUSEBUTTONDOWN:
             self.mouse_button_pressed = True
         else:
             self.mouse_button_pressed = False

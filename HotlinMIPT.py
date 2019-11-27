@@ -1,4 +1,4 @@
-import pygame
+﻿import pygame
 from collections import defaultdict
 import sys
 import config as c
@@ -42,17 +42,23 @@ class HotlineMIPT:
             self.background_image = pygame.image.load(c.back_image_filename)
             self.surface.blit(self.background_image, (-420, 0))
             pygame.display.update()
-            self.clock.tick(1)            
+            self.clock.tick(0.2)            
       def menu(self):
-            start_game = pygame.rect.Rect(40, 40, 20, 20)
-            pygame.draw.rect(self.surface, (100, 100,100) , start_game)
-            self.surface.blit(pygame.font.SysFont(c.font, 20).render('текст', False, (100, 200, 50)), (40, 40))
+            start_game = pygame.rect.Rect(100, 40, 90, 50)
+            exit_game = pygame.rect.Rect(440, 40, 100, 50)
+            pygame.draw.rect(self.surface, (0, 100, 0) , start_game)
+            pygame.draw.rect(self.surface, (100, 0, 0) , exit_game)
+            self.surface.blit(pygame.font.SysFont(c.font, 40).render('Старт', False, (100, 200, 50)), (100, 40))
+            self.surface.blit(pygame.font.SysFont(c.font, 40).render('Выход', False, (200, 100, 50)), (440, 40))           
             pygame.display.update()
-            while  not self.game_over:
+            while not self.game_over:
                   for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                               if start_game.collidepoint(event.pos):
                                     Game.Game(self.surface).run() #функция вызывает основную игру
+                              if exit_game.collidepoint(event.pos):
+                                    pygame.quit()
+                                    sys.exit()
 
       def run(self):
             self.zastavka()

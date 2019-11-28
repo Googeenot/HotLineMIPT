@@ -3,7 +3,7 @@ import GameObject
 from random import choice, randrange as rnd
 
 class Pen(GameObject):
-    def __init__(self, x, y, w, h, vel):
+    def __init__(self, x, y, w, h, owner, vel = (0, 0)):
         GameObject.__init__(x, y, w, h)
         self.color = choice('black', 'red')
         self.r = (w ** 2 + h ** 2) ** 0.5
@@ -11,6 +11,7 @@ class Pen(GameObject):
         self.x = x
         self.y = y
         self.mouse_button_pressed = False
+        self.owner = owner
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -28,10 +29,13 @@ class Pen(GameObject):
             self.move(obj.dx, obj.dy)
 
     def hit_test(self, obj):
-        if abs(obj.x - self.x) <= (self.r + obj.r) and abs(obj.y - self.y) <= (self.r + obj.r):
-            return True
+        if obj != self.owner:
+            if abs(obj.x - self.x) <= (self.r + obj.r) and abs(obj.y - self.y) <= (self.r + obj.r):
+                return True
+            else:
+                return False
         else:
-            return False
+            pass
 
     def initialization_of_attack(self):
         r = pygame.mouse.get_pos()

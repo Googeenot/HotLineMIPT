@@ -8,3 +8,4 @@ frame_rate = 30  #FPS часттат обновления экрана (колл
 fon  = 'fon.png'
 v=5 #скорость челика
 font = 'Arial'
+map = 'media//map.png'

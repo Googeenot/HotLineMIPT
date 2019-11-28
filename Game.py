@@ -3,6 +3,7 @@ from collections import defaultdict
 import sys
 import config as c
 import poligon
+import map
 class Game:
       def __init__(self, surface):
             #print(c.caption)
@@ -60,8 +61,22 @@ class Game:
 ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
         
         self.objects.append(poligonn)
+
+      def map(self):
+            poligonn = map.Map(20, 20, 10, 10, (100, 100, 100), 5)
+
+            self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
+            self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
+            self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
+            self.keydown_handlers[pygame.K_DOWN].append(poligonn.handle)
+            print(self.keydown_handlers)
+            ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
+            ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
+
+            self.objects.append(poligonn)
       def create_objects(self):
-            self.create_poligon()
+          self.map()
+          self.create_poligon()
 
       def run(self):
             self.create_objects()

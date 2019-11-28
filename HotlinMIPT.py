@@ -42,7 +42,7 @@ class HotlineMIPT:
             self.background_image = pygame.image.load(c.back_image_filename)
             self.surface.blit(self.background_image, (-420, 0))
             pygame.display.update()
-            self.clock.tick(0.2)            
+            self.clock.tick(30)            
       def menu(self):
             self.background_image = pygame.image.load(c.back_image)
             self.surface.blit(self.background_image, (-420, 0))

@@ -1,32 +1,37 @@
 import pygame
-import GameObject
+from GameObject import GameObject
 from random import choice, randrange as rnd
+import colors
 
 class Pen(GameObject):
     def __init__(self, x, y, w, h, owner, vel = (0, 0)):
-        GameObject.__init__(x, y, w, h)
-        self.color = choice('black', 'red')
+        GameObject.__init__(self, x, y, w, h)
+        self.color = choice([colors.BLACK, colors.RED2])
         self.r = (w ** 2 + h ** 2) ** 0.5
         self.velocity = vel
         self.x = x
         self.y = y
         self.mouse_button_pressed = False
-        self.owner = owner
+        self.owner = False
 
     def draw(self, surface):
-        pygame.draw.rect(surface, self.color, self.bounds)
+        if not self.owner:
+            pygame.draw.rect(surface, self.color, self.bounds)
 
-    def handle(self, key):
+    def handle(self, key, pos): #pos это координаты мыши
         if key == pygame.MOUSEBUTTONDOWN:
             self.mouse_button_pressed = True
         else:
             self.mouse_button_pressed = False
 
-    def update(self, obj):
-        if self.mouse_button_pressed:
-            self.strike_movement()
-        else:
-            self.move(obj.dx, obj.dy)
+    def update(self):
+        if not self.owner:
+            dx =0
+            dy =0
+            if self.mouse_button_pressed:
+                self.strike_movement()
+            else:
+                self.move(dx, dy)
 
     def hit_test(self, obj):
         if obj != self.owner:
@@ -54,10 +59,10 @@ class Pen(GameObject):
         return norm_mv
 
     def strike_movement(self):
-        if pygame.mouse.get_pressed()[0]:
+        #if pygame.mouse.get_pressed()[0]:
             mv = self.strike_calculations()
             dx = mv[0]
             dy = mv[1]
             self.move(dx, dy)
-        else:
-            pass
+        #else:
+           # pass

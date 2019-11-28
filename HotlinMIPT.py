@@ -44,6 +44,9 @@ class HotlineMIPT:
             pygame.display.update()
             self.clock.tick(0.2)            
       def menu(self):
+            self.background_image = pygame.image.load(c.back_image)
+            self.surface.blit(self.background_image, (-420, 0))
+            pygame.display.update()
             start_game = pygame.rect.Rect(100, 40, 90, 50)
             exit_game = pygame.rect.Rect(440, 40, 100, 50)
             pygame.draw.rect(self.surface, (0, 100, 0) , start_game)

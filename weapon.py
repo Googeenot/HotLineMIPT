@@ -54,10 +54,7 @@ class Pen(GameObject):
         return norm_mv
 
     def strike_movement(self):
-        if pygame.mouse.get_pressed()[0]:
-            mv = self.strike_calculations()
-            dx = mv[0]
-            dy = mv[1]
-            self.move(dx, dy)
-        else:
-            pass
+        mv = self.strike_calculations()
+        dx = mv[0]
+        dy = mv[1]
+        self.move(dx, dy)

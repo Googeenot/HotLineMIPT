@@ -6,7 +6,7 @@ import Game
 class HotlineMIPT:
       def __init__(self):
             #print(c.caption)
-            pygame.init() 
+            pygame.init()
             pygame.font.init()
             pygame.display.set_caption(c.caption)
             self.surface = pygame.display.set_mode((c.widht, c.height),  (pygame.NOFRAME and pygame.FULLSCREEN))
@@ -72,4 +72,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()            
+    main()

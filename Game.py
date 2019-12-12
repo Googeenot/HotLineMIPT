@@ -3,11 +3,11 @@ from collections import defaultdict
 import sys
 import config as c
 import poligon
-<<<<<<< HEAD
+#<<<<<<< HEAD
 import map
-=======
+#=======
 import weapon
->>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
+#>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
 class Game:
       def __init__(self, surface):
             #print(c.caption)
@@ -26,8 +26,11 @@ class Game:
             self.game_over = False
 
       def update(self):
-            for i in self.objects:
+          for i in self.objects:
                   i.update()
+          exit_game = pygame.rect.Rect(440, 40, 100, 50)
+          pygame.draw.rect(self.surface, (100, 0, 0), exit_game)
+          self.surface.blit(pygame.font.SysFont(c.font, 40).render('Выход', False, (200, 100, 50)), (440, 40))
 
 
       def draw(self):
@@ -53,6 +56,7 @@ class Game:
                                 pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers[event.type]:
                         handler(event.type, event.pos)
+
       def create_poligon(self):
         poligonn = poligon.Poligon(20, 20, 10,10, (100, 100,100), 5 )
         
@@ -63,7 +67,7 @@ class Game:
         self.objects.append(poligonn)
 ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
 ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
-<<<<<<< HEAD
+#<<<<<<< HEAD
         
         self.objects.append(poligonn)
 
@@ -82,7 +86,7 @@ class Game:
       def create_objects(self):
           self.map()
           self.create_poligon()
-=======
+
       def create_pen(self):
             pen = weapon.Pen(60, 60, 10, 10, (100, 200, 100), 0)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
@@ -91,7 +95,6 @@ class Game:
       def create_objects(self):
             self.create_poligon()
             self.create_pen()
->>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
 
       def run(self):
             self.create_objects()

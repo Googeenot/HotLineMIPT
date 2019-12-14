@@ -8,8 +8,8 @@ frame_rate = 30  #FPS часттат обновления экрана (колл
 fon  = 'media//fon.png'
 v=5 #скорость челика
 font = 'Arial'
-<<<<<<< HEAD
+#<<<<<<< HEAD
 map = 'media//map.png'
 =======
 back_image = 'media//zastavka.png'
->>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
+#>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9

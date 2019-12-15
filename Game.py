@@ -3,12 +3,13 @@ from collections import defaultdict
 import sys
 import config as c
 import poligon
+
 #<<<<<<< HEAD
 import map
 #=======
 import weapon
 #>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
-class Game:
+class Game():
       def __init__(self, surface):
             #print(c.caption)
             self.surface = surface
@@ -97,17 +98,29 @@ class Game:
             self.create_pen()
 
       def run(self):
+            #self.background_image = pygame.image.load(c.back_image_filename)
+            #self.surface.blit(self.background_image, (-420, 0))
+            #pygame.display.update()
+
             self.create_objects()
-            self.background_image = pygame.image.load(c.fon)
+            self.background_image = pygame.image.load(c.map)
+            xx = 0
+            yy = 0
+
+            #self.clock.tick(300000)
+            #self.surface.blit(self.background_image, (-420, 0))
             while not self.game_over:
 
-                  self.surface.blit(self.background_image, (0, 0))
+                  self.surface.blit(self.background_image, (xx, yy))
                   self.handle_events()
                   self.update()
                   self.draw()
+                  #xx += dx.Poligon(GameObject)
+                  #yy += dy.Poligon(GameObject)
 
                   pygame.display.update()
                   self.clock.tick(self.frame_rate)
+            #self.clock.tick(30000)
       def uploadlevel(self):
             pass
 

@@ -30,9 +30,13 @@ class Game():
       def update(self):
           for i in self.objects:
                   i.update()
-          exit_game = pygame.rect.Rect(440, 40, 100, 50)
+          x = 620
+          y = 0
+          w = 20
+          h = 10
+          exit_game = pygame.rect.Rect(x, y, w, h)
           pygame.draw.rect(self.surface, (100, 0, 0), exit_game)
-          self.surface.blit(pygame.font.SysFont(c.font, 40).render('Выход', False, (200, 100, 50)), (440, 40))
+          self.surface.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
 
 
       def draw(self):
@@ -91,7 +95,7 @@ class Game():
           self.create_poligon()
 
       def create_pen(self):
-            pen = weapon.Pen(510, 250, 10, 10, self.p)
+            pen = weapon.Pen(550, 250, 10, 10, self.p)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
             self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
             self.objects.append(pen)

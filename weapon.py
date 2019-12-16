@@ -14,17 +14,15 @@ class Bullet(GameObject):
         self.mouse_button_pressed = False
 
     def draw(self, surface):
-        if not self.owner:
-            pygame.draw.oval(surface, self.color, self.bounds)
+        pygame.draw.oval(surface, self.color, self.bounds)
 
     def update(self):
-        if not self.owner:
-            dx = 0
-            dy = 0
-            if self.mouse_button_pressed:
-                self.strike_movement()
-            else:
-                self.move(dx, dy)
+        dx = 0
+        dy = 0
+        if self.mouse_button_pressed:
+            self.strike_movement()
+        else:
+            self.move(dx, dy)
 
 
 class Pen(GameObject):
@@ -39,8 +37,7 @@ class Pen(GameObject):
         self.owner = owner
 
     def draw(self, surface):
-        if not self.owner:
-            pygame.draw.rect(surface, self.color, self.bounds)
+        pygame.draw.rect(surface, self.color, self.bounds)
 
     def handle(self, key, pos): #pos это координаты мыши
         if key == pygame.MOUSEBUTTONDOWN:
@@ -52,16 +49,19 @@ class Pen(GameObject):
         if self.mouse_button_pressed:
             a = pygame.mouse.get_pos()[0]
             b = pygame.mouse.get_pos()[1]
-            if 440 < a < 540 and 40 < b < 90:
+            if 615 < a < 640 and 0 < b < 15:
                 pygame.quit()
             a -= self.x
             b -= self.y
             line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
-            a = round(a / line_length, 2)
-            b = round(b / line_length, 2)
+            a = round(a / line_length)
+            b = round(b / line_length)
             self.move(5*a, 5*b)
         else:
-            self.move(self.owner.dx, self.owner.dy)
+            if self.x != self.owner.x + 20 and self.y != self.owner.y:
+                self.move(self.owner.x + 20 - self.x, self.owner.y - self.y)
+            else:
+                self.move(0, 0)
 
 
     def move(self, dx, dy):  #

@@ -7,6 +7,8 @@ from GameObject import GameObject
 class Poligon(GameObject):
     def __init__(self, x, y, w, h, color, offset):
         GameObject.__init__(self, x, y, w, h)
+        self.x = x
+        self.y = y
         self.color = color
         self.offset = offset
         self.moving_left = False

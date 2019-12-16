@@ -99,9 +99,15 @@ class Game():
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
             self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
             self.objects.append(pen)
+
+      def create_rival(self):
+          riv_1 = poligon.Rival(20, 40, 10, 10, (100, 100, 50), 5, self.p)
+          self.objects.append(riv_1)
+
       def create_objects(self):
             self.create_poligon()
             self.create_pen()
+            self.create_rival()
 
       def run(self):
             #self.background_image = pygame.image.load(c.back_image_filename)

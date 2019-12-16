@@ -64,3 +64,25 @@ class Poligon(GameObject):
                 pass
         else:
             pass
+
+
+class Rival(Poligon):
+    def __init__(self, x, y, w, h, color, offset, p):
+        Poligon.__init__(self, x, y, w, h, color, offset)
+        self.attack = p
+        self.r_attack = 50
+
+    def draw(self, surface):
+        pygame.draw.rect(surface, self.color, self.bounds)
+
+    def update(self):
+        if ((self.x - self.attack.x)** 2 + (self.y - self.attack.y) ** 2) ** 0.5 <= self.r_attack:
+            ro = ((self.x - self.attack.x)** 2 + (self.y - self.attack.y) ** 2) ** 0.5
+            x = (self.attack.x - self.x) / ro
+            y = (self.attack.y - self.y) / ro
+            self.dx = round(5 * x)
+            self.dy = round(5 * y)
+            self.move(self.dx, self.dy)
+
+    def handle(self, key):
+        pass

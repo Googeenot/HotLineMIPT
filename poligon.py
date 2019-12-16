@@ -14,6 +14,10 @@ class Poligon(GameObject):
         self.moving_up = False
         self.moving_down = False
         self.live = 1
+        self.map_x = 0
+        self.map_y = -370
+        self.dx = 0
+        self.dy = 0
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -29,22 +33,24 @@ class Poligon(GameObject):
             self.moving_down = not self.moving_down
     def update(self):
         if self.live:
-            dx =0
-            dy =0
+            self.dx = 0
+            self.dy = 0
             if self.moving_left:
-                dx = -1
+                self.dx = -1
             elif self.moving_right:
-               dx = 1
+                self.dx = 1
             if self.moving_up:
-                dy = -1
+                self.dy = -1
             elif self.moving_down:
-                dy = 1
-            if not dx and not dy:
+                self.dy = 1
+            if not self.dx and not self.dy:
                 return
-            h = dx
-            dx  /= (1 / c.v) * (dx ** 2 + dy ** 2) ** 0.5
-            dy  /= (1 / c.v) * (h ** 2 + dy ** 2) ** 0.5
-            self.move(dx, dy)
+            h = self.dx
+            self.dx  /= (1 / c.v) * (self.dx ** 2 + self.dy ** 2) ** 0.5
+            self.dy  /= (1 / c.v) * (h ** 2 + self.dy ** 2) ** 0.5
+            self.move(0, 0)
+            self.map_x -= self.dx
+            self.map_y -= self.dy
         else:
             pass
 

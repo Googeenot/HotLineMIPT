@@ -36,7 +36,7 @@ class Pen(GameObject):
         self.x = x
         self.y = y
         self.mouse_button_pressed = False
-        self.owner = False
+        self.owner = owner
 
     def draw(self, surface):
         if not self.owner:
@@ -49,18 +49,20 @@ class Pen(GameObject):
             self.mouse_button_pressed = False
 
     def update(self):
-        if not self.owner:
-            if self.mouse_button_pressed:
-                a = pygame.mouse.get_pos()[0]
-                b = pygame.mouse.get_pos()[1]
-                if 440 < a < 540 and 40 < b < 90:
-                    pygame.quit()
-                a -= self.x
-                b -= self.y
-                line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
-                a = round(a / line_length, 2)
-                b = round(b / line_length, 2)
-                self.move(5*a, 5*b)
+        if self.mouse_button_pressed:
+            a = pygame.mouse.get_pos()[0]
+            b = pygame.mouse.get_pos()[1]
+            if 440 < a < 540 and 40 < b < 90:
+                pygame.quit()
+            a -= self.x
+            b -= self.y
+            line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
+            a = round(a / line_length, 2)
+            b = round(b / line_length, 2)
+            self.move(5*a, 5*b)
+        else:
+            self.move(self.owner.dx, self.owner.dy)
+
 
     def move(self, dx, dy):  #
         self.bounds = self.bounds.move(dx, dy)

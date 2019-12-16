@@ -25,6 +25,7 @@ class Game():
             self.keyup_handlers = defaultdict(list)
             self.mouse_handlers = defaultdict(list)
             self.game_over = False
+            self.p = None
 
       def update(self):
           for i in self.objects:
@@ -59,8 +60,8 @@ class Game():
                         handler(event.type, event.pos)
 
       def create_poligon(self):
-        poligonn = poligon.Poligon(20, 20, 10,10, (100, 100,100), 5 )
-        
+        poligonn = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5 )
+        self.p = poligonn
         self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
@@ -74,6 +75,7 @@ class Game():
 
       def map(self):
             poligonn = map.Map(20, 20, 10, 10, (100, 100, 100), 5)
+
 
             self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
             self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
@@ -89,7 +91,7 @@ class Game():
           self.create_poligon()
 
       def create_pen(self):
-            pen = weapon.Pen(60, 60, 10, 10, (100, 200, 100), 0)
+            pen = weapon.Pen(510, 250, 10, 10, self.p)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
             self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
             self.objects.append(pen)
@@ -104,13 +106,12 @@ class Game():
 
             self.create_objects()
             self.background_image = pygame.image.load(c.map)
-            xx = 0
-            yy = 0
 
             #self.clock.tick(300000)
             #self.surface.blit(self.background_image, (-420, 0))
             while not self.game_over:
-
+                  xx = self.p.map_x
+                  yy = self.p.map_y
                   self.surface.blit(self.background_image, (xx, yy))
                   self.handle_events()
                   self.update()

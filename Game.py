@@ -36,6 +36,9 @@ class Game():
 #<<<<<<< HEAD
             self.pause_game = None
 
+            self.dx = 0
+            self.dy = 0
+
 #=======
             print
 #>>>>>>> 0d69b4ec636b4ba156815197162ca66d105c8009
@@ -146,6 +149,38 @@ class Game():
             self.create_poligon()
             self.create_pen()
             #self.create_rival()
+      def movecamera(self):
+            dx = -2
+            dy = -2
+            if self.shina[poligon][0].moving_left:
+                  if self.dx < 20:
+                        self.dx -=dx
+            elif self.shina[poligon][0].moving_right:
+                  if self.dx> -20:
+                        self.dx +=dx
+            else:
+                        
+                  if self.dx>0:
+                        self.dx+=dx
+                  elif self.dx<0:
+                        self.dx-=dx
+                  
+            if self.shina[poligon][0].moving_up:
+                  if self.dy < 20:
+                        self.dy -=dy
+            elif self.shina[poligon][0].moving_down:
+                  if self.dy > -20:
+                        self.dy +=dy
+            else:
+                  if self.dy>0:
+                        self.dy+=dy
+                  elif self.dy<0:
+                        self.dy-=dy
+                  
+                  
+            x = self.shina[poligon][0].bounds[0]+self.dx
+            y = self.shina[poligon][0].bounds[1]+self.dy
+            self.surfaceh.blit(self.surface, (c.widht/2 - x, c.height/2 - y))
 
       def run(self):
             self.background_image = pygame.image.load(c.back_image)
@@ -164,7 +199,7 @@ class Game():
                   self.handle_events()
                   self.update()
                   self.draw()
-                  self.surfaceh.blit(self.surface, (c.widht/2 - self.shina[poligon][0].bounds[0], c.height/2 - self.shina[poligon][0].bounds[1]))
+                  self.movecamera()
                   self.menu()
 
                   pygame.display.update()

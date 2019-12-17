@@ -12,7 +12,8 @@ import weapon
 class Game():
       def __init__(self, surface):
             #print(c.caption)
-            self.surface = surface
+            self.surfaceh = surface
+            self.surface = pygame.display.set_mode((c.widht, c.height), (pygame.NOFRAME and pygame.FULLSCREEN))
             self.frame_rate = c.frame_rate
             self.clock = pygame.time.Clock()
             print(self.clock)
@@ -120,12 +121,13 @@ class Game():
             #self.clock.tick(300000)
             #self.surface.blit(self.background_image, (-420, 0))
             while not self.game_over:
-                  xx = self.p.map_x
-                  yy = self.p.map_y
-                  self.surface.blit(self.background_image, (xx, yy))
+                  #xx = self.p.map_x
+                  #yy = self.p.map_y
+                  self.surface.blit(self.background_image, (0, 0))
                   self.handle_events()
                   self.update()
                   self.draw()
+
                   #xx += dx.Poligon(GameObject)
                   #yy += dy.Poligon(GameObject)
 

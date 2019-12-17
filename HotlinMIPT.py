@@ -6,7 +6,7 @@ import Game
 class HotlineMIPT:
       def __init__(self):
             #print(c.caption)
-            pygame.init() 
+            pygame.init()
             pygame.font.init()
             pygame.display.set_caption(c.caption)
             self.surface = pygame.display.set_mode((c.widht, c.height),  (pygame.NOFRAME and pygame.FULLSCREEN))
@@ -16,6 +16,7 @@ class HotlineMIPT:
             print(self.clock)
             self.objects = []
             self.clock = pygame.time.Clock()
+
 
             
 ##            self.keydown_handlers = defaultdict(list)
@@ -42,11 +43,15 @@ class HotlineMIPT:
             self.background_image = pygame.image.load(c.back_image_filename)
             self.surface.blit(self.background_image, (-420, 0))
             pygame.display.update()
-            self.clock.tick(30)            
+#<<<<<<< HEAD
+            self.clock.tick(1)            
+#=======
+            self.clock.tick(30)
+#>>>>>>> 93e08b697c4b9b8865f47de78ec9081315783ba9
       def menu(self):
-            self.background_image = pygame.image.load(c.back_image)
-            self.surface.blit(self.background_image, (-420, 0))
-            pygame.display.update()
+            #self.background_image = pygame.image.load(c.back_image)
+            #self.surface.blit(self.background_image, (-420, 0))
+            #pygame.display.update()
             start_game = pygame.rect.Rect(100, 40, 90, 50)
             exit_game = pygame.rect.Rect(440, 40, 100, 50)
             pygame.draw.rect(self.surface, (0, 100, 0) , start_game)
@@ -72,4 +77,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()            
+    main()

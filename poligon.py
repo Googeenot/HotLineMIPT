@@ -54,7 +54,6 @@ class Poligon(GameObject):
             print(Karta.k)
             b = True
             for i in range(Karta.k):
-                print('iter')
                 if self.bounds.colliderect(Karta.map_rect[i]) == True:
                     self.dx *= -1
                     self.dy *= -1
@@ -89,8 +88,8 @@ class Rival(Poligon):
         pygame.draw.rect(surface, self.color, self.bounds)
 
     def update(self):
-        if ((self.x - self.attack.x)** 2 + (self.y - self.attack.y) ** 2) ** 0.5 <= self.r_attack:
-            ro = ((self.x - self.attack.x)** 2 + (self.y - self.attack.y) ** 2) ** 0.5
+        ro = ((self.x - self.attack.x) ** 2 + (self.y - self.attack.y) ** 2) ** 0.5
+        if ro <= self.r_attack:
             x = (self.attack.x - self.x) / ro
             y = (self.attack.y - self.y) / ro
             self.dx = round(5 * x)

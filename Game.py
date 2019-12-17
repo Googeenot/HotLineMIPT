@@ -32,7 +32,7 @@ class Game():
             self.keyup_handlers = defaultdict(list)
             self.mouse_handlers = defaultdict(list)
             self.game_over = False
-            self.p = None
+            self.p = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5)
 #<<<<<<< HEAD
             self.pause_game = None
 
@@ -95,8 +95,7 @@ class Game():
                           i = 1
 
       def create_poligon(self):
-        poligonn = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5 )
-        self.p = poligonn
+        poligonn = self.p
         self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
@@ -111,8 +110,6 @@ class Game():
 
       def map(self):
             poligonn = map.Map(20, 20, 10, 10, (100, 100, 100), 5)
-
-
             self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
             self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
             self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
@@ -122,13 +119,8 @@ class Game():
             ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
 
             self.objects.append(poligonn)
-      def create_objects(self):
-          self.map()
-          self.create_poligon()
 
       def create_pen(self):
-#<<<<<<< HEAD
-            pen = weapon.Pen(60, 60, 10, 10, (100, 200, 100), 0)
             #self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
             #self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
 #=======
@@ -145,7 +137,7 @@ class Game():
       def create_objects(self):
             self.create_poligon()
             self.create_pen()
-            #self.create_rival()
+            self.create_rival()
 
       def run(self):
             self.background_image = pygame.image.load(c.back_image)

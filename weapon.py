@@ -94,8 +94,26 @@ class Pen(GameObject):
         norm_mv = [cos, sin]
         return norm_mv
 
+#<<<<<<< HEAD
+##    def strike_movement(self):
+##<<<<<<< HEAD
+##        #if pygame.mouse.get_pressed()[0]:
+##            mv = self.strike_calculations()
+##            dx = mv[0]
+##            dy = mv[1]
+##            self.move(dx, dy)
+##        #else:
+##           # pass
+##=======
+##        mv = self.strike_calculations()
+##        dx = mv[0]
+##        dy = mv[1]
+##        self.move(dx, dy)
+##>>>>>>> df38d0490200f04b23912a12088960fd7545a497
+#=======
     def strike_movement(self):
         mv = self.strike_calculations()
         a = a
         b = b
         self.move(a, b)
+#>>>>>>> 93e08b697c4b9b8865f47de78ec9081315783ba9

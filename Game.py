@@ -11,8 +11,15 @@ import weapon
 #>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
 class Game():
       def __init__(self, surface):
+            
             #print(c.caption)
-            self.surface = surface
+            self.surfaceh = surface
+#<<<<<<< HEAD
+            self.surface = pygame.display.set_mode((c.widht, c.height), (pygame.NOFRAME and pygame.FULLSCREEN))
+#=======
+            self.surface =  pygame.Surface((c.widhtkarta, c.heightkarta))
+
+#>>>>>>> d70afdfbf1f40f2dd0d5c0bf5fb9d3ff3f57755f
             self.frame_rate = c.frame_rate
             self.clock = pygame.time.Clock()
             print(self.clock)
@@ -20,27 +27,34 @@ class Game():
 
             self.velocity = [0, 0]
 
-            
+            self.shina = defaultdict(list)
             self.keydown_handlers = defaultdict(list)
             self.keyup_handlers = defaultdict(list)
             self.mouse_handlers = defaultdict(list)
             self.game_over = False
             self.p = None
+#<<<<<<< HEAD
             self.pause_game = None
 
-      def update(self):
-          for i in self.objects:
-                  i.update()
+#=======
+            print
+#>>>>>>> 0d69b4ec636b4ba156815197162ca66d105c8009
+      def menu(self):
           x = 620
           y = 0
           w = 20
           h = 10
           exit_game = pygame.rect.Rect(x, y, w, h)
-          pygame.draw.rect(self.surface, (100, 0, 0), exit_game)
-          self.surface.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
+          pygame.draw.rect(self.surfaceh, (100, 0, 0), exit_game)
+          self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
           self.pause_game = pause_game = pygame.rect.Rect(x - 30, y, w + 10, h)
-          pygame.draw.rect(self.surface, (0, 100, 0), pause_game)
-          self.surface.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 30, y))
+          pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_game)
+          self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 30, y))
+
+      def update(self):
+          for i in self.objects:
+                  i.update()
+
 
       def draw(self):
             for i in self.objects:
@@ -70,8 +84,8 @@ class Game():
 
       def pause(self):
           pause_menu = pygame.rect.Rect(300, 150, 90, 45)
-          pygame.draw.rect(self.surface, (0, 100, 0), pause_menu)
-          self.surface.blit(pygame.font.SysFont(c.font, 40).render('Go on', False, (200, 100, 50)), (300, 150))
+          pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_menu)
+          self.surfaceh.blit(pygame.font.SysFont(c.font, 40).render('Go on', False, (200, 100, 50)), (300, 150))
           pygame.display.update()
           i = 0
           while i != 1:
@@ -91,7 +105,8 @@ class Game():
 ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
 ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
 #<<<<<<< HEAD
-        
+        self.shina[poligon].append(poligonn.bounds)
+        print(self.shina[poligon][0][0])
         self.objects.append(poligonn)
 
       def map(self):
@@ -112,9 +127,15 @@ class Game():
           self.create_poligon()
 
       def create_pen(self):
+#<<<<<<< HEAD
+            pen = weapon.Pen(60, 60, 10, 10, (100, 200, 100), 0)
+            #self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
+            #self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
+#=======
             pen = weapon.Pen(550, 250, 10, 10, self.p)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
             self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
+#>>>>>>> 93e08b697c4b9b8865f47de78ec9081315783ba9
             self.objects.append(pen)
 
       def create_rival(self):
@@ -124,12 +145,13 @@ class Game():
       def create_objects(self):
             self.create_poligon()
             self.create_pen()
-            self.create_rival()
+            #self.create_rival()
 
       def run(self):
-            #self.background_image = pygame.image.load(c.back_image_filename)
-            #self.surface.blit(self.background_image, (-420, 0))
-            #pygame.display.update()
+            self.background_image = pygame.image.load(c.back_image)
+            self.surfaceh.blit(self.background_image, (0, 0))
+            
+            pygame.display.update()
 
             self.create_objects()
             self.background_image = pygame.image.load(c.map)
@@ -137,15 +159,30 @@ class Game():
             #self.clock.tick(300000)
             #self.surface.blit(self.background_image, (-420, 0))
             while not self.game_over:
-                  xx = self.p.map_x
-                  yy = self.p.map_y
-                  self.surface.blit(self.background_image, (xx, yy))
+#<<<<<<< HEAD
+                  #xx = self.p.map_x
+                  #yy = self.p.map_y
+#=======
+##                  xx = self.p.map_x
+##                  yy = self.p.map_y
+#>>>>>>> d70afdfbf1f40f2dd0d5c0bf5fb9d3ff3f57755f
+                  self.surface.blit(self.background_image, (0, 0))
                   self.handle_events()
                   self.update()
                   self.draw()
+#<<<<<<< HEAD
+
                   #xx += dx.Poligon(GameObject)
                   #yy += dy.Poligon(GameObject)
 
+#=======
+##                  xx += dx.Poligon(GameObject)
+##                  yy += dy.Poligon(GameObject)
+                  self.surfaceh.blit(self.surface, (c.widht/2 - self.shina[poligon][0][0], c.height/2 - self.shina[poligon][0][1]))
+                  self.menu()
+
+
+#>>>>>>> d70afdfbf1f40f2dd0d5c0bf5fb9d3ff3f57755f
                   pygame.display.update()
                   self.clock.tick(self.frame_rate)
             #self.clock.tick(30000)

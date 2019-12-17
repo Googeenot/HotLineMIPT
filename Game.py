@@ -26,6 +26,7 @@ class Game():
             self.mouse_handlers = defaultdict(list)
             self.game_over = False
             self.p = None
+            self.pause_game = None
 
       def update(self):
           for i in self.objects:
@@ -37,7 +38,9 @@ class Game():
           exit_game = pygame.rect.Rect(x, y, w, h)
           pygame.draw.rect(self.surface, (100, 0, 0), exit_game)
           self.surface.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
-
+          self.pause_game = pause_game = pygame.rect.Rect(x - 30, y, w + 10, h)
+          pygame.draw.rect(self.surface, (0, 100, 0), pause_game)
+          self.surface.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 30, y))
 
       def draw(self):
             for i in self.objects:
@@ -62,6 +65,20 @@ class Game():
                                 pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers[event.type]:
                         handler(event.type, event.pos)
+                if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
+                    self.pause()
+
+      def pause(self):
+          pause_menu = pygame.rect.Rect(300, 150, 90, 45)
+          pygame.draw.rect(self.surface, (0, 100, 0), pause_menu)
+          self.surface.blit(pygame.font.SysFont(c.font, 40).render('Go on', False, (200, 100, 50)), (300, 150))
+          pygame.display.update()
+          i = 0
+          while i != 1:
+              for event in pygame.event.get():
+                  if event.type == pygame.MOUSEBUTTONDOWN:
+                      if pause_menu.collidepoint(event.pos):
+                          i = 1
 
       def create_poligon(self):
         poligonn = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5 )

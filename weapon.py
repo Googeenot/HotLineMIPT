@@ -58,7 +58,7 @@ class Pen(GameObject):
             b = round(b / line_length)
             self.move(5*a, 5*b)
         else:
-            if self.x != self.owner.x + 20 and self.y != self.owner.y:
+            if self.x != self.owner.x + 20 or self.y != self.owner.y:
                 self.move(self.owner.x + 20 - self.x, self.owner.y - self.y)
             else:
                 self.move(0, 0)

@@ -61,8 +61,8 @@ class Game:
 ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
       def create_pen(self):
             pen = weapon.Pen(60, 60, 10, 10, (100, 200, 100), 0)
-            self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
-            self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
+            #self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
+            #self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
             self.objects.append(pen)
       def create_objects(self):
             self.create_poligon()

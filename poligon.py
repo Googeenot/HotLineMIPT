@@ -1,5 +1,6 @@
 import pygame
 import Karta
+import Game
 import config as c
 from GameObject import GameObject
 
@@ -51,10 +52,9 @@ class Poligon(GameObject):
             self.dx  /= (1 / c.v) * (self.dx ** 2 + self.dy ** 2) ** 0.5
             self.dy  /= (1 / c.v) * (h ** 2 + self.dy ** 2) ** 0.5
             self.move(self.dx, self.dy)
-            print(Karta.k)
             b = True
             for i in range(Karta.k):
-                if self.bounds.colliderect(Karta.map_rect[i]) == True:
+                if self.bounds.colliderect(Karta.map_rect[i]):
                     self.dx *= -1
                     self.dy *= -1
                     b = False
@@ -89,15 +89,14 @@ class Rival(Poligon):
 
     def update(self):
         ro = ((self.x - self.attack.x) ** 2 + (self.y - self.attack.y) ** 2) ** 0.5
+        print(ro)
         if ro <= self.r_attack:
             x = (self.attack.x - self.x) / ro
             y = (self.attack.y - self.y) / ro
             self.dx = round(5 * x)
             self.dy = round(5 * y)
-            print(Karta.k)
             for i in range(Karta.k):
-                print('iter')
-                if self.bounds.colliderect(Karta.map_rect[i]) == True:
+                if self.bounds.colliderect(Karta.map_rect[i]):
                     print('false')
                     self.dx = 0
                     self.dy = 0

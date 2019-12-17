@@ -63,7 +63,7 @@ class HotlineMIPT:
                   for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                               if start_game.collidepoint(event.pos):
-                                    Game.Game(self.surface).run() #функция вызывает основную игру
+                                    Game.Game(self.surface).run()
                               if exit_game.collidepoint(event.pos):
                                     pygame.quit()
                                     sys.exit()

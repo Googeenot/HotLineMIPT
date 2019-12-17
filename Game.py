@@ -3,6 +3,7 @@ from collections import defaultdict
 import sys
 import config as c
 import poligon
+import Enemies
 
 #<<<<<<< HEAD
 import map
@@ -109,6 +110,21 @@ class Game():
 ##        print(self.shina[poligon][0][0])
         self.objects.append(poligonn)
 
+      def create_enemies(self):
+        r_en = []
+        for i in range(Enemies.k_en):
+            r_en.append(poligon.Poligon(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5))
+        #self.keydown_handlers[pygame.K_LEFT].append(r_en[i].handle)
+        #self.keydown_handlers[pygame.K_RIGHT].append(r_en[i].handle)
+        #self.keydown_handlers[pygame.K_UP].append(r_en[i].handle)
+        #self.keydown_handlers[pygame.K_DOWN].append(r_en[i].handle)
+            self.objects.append(r_en[i])
+        ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
+        ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
+        # <<<<<<< HEAD
+            self.shina[poligon].append(r_en[i])
+        ##        print(self.shina[poligon][0][0])
+
       def map(self):
             poligonn = map.Map(20, 20, 10, 10, (100, 100, 100), 5)
 
@@ -125,6 +141,7 @@ class Game():
       def create_objects(self):
           self.map()
           self.create_poligon()
+          self.create_enemies()
 
       def create_pen(self):
 #<<<<<<< HEAD
@@ -145,6 +162,7 @@ class Game():
       def create_objects(self):
             self.create_poligon()
             self.create_pen()
+            self.create_enemies()
             #self.create_rival()
 
       def run(self):

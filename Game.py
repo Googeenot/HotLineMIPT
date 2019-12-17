@@ -153,10 +153,10 @@ class Game():
             dx = -2
             dy = -2
             if self.shina[poligon][0].moving_left:
-                  if self.dx < 20:
+                  if self.dx < 24:
                         self.dx -=dx
             elif self.shina[poligon][0].moving_right:
-                  if self.dx> -20:
+                  if self.dx> -24:
                         self.dx +=dx
             else:
                         
@@ -166,10 +166,10 @@ class Game():
                         self.dx-=dx
                   
             if self.shina[poligon][0].moving_up:
-                  if self.dy < 20:
+                  if self.dy < 24:
                         self.dy -=dy
             elif self.shina[poligon][0].moving_down:
-                  if self.dy > -20:
+                  if self.dy > -24:
                         self.dy +=dy
             else:
                   if self.dy>0:

@@ -55,6 +55,11 @@ class Poligon(GameObject):
             b = True
             for i in range(Karta.k):
                 if self.bounds.colliderect(Karta.map_rect[i]) == True:
+                    self.moving_left = False
+                    self.moving_right = False
+                    self.moving_up = False
+                    self.moving_down = False
+                    
                     self.dx *= -1
                     self.dy *= -1
                     b = False

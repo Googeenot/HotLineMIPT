@@ -54,7 +54,6 @@ class Poligon(GameObject):
             print(Karta.k)
             b = True
             for i in range(Karta.k):
-                print('iter')
                 if self.bounds.colliderect(Karta.map_rect[i]) == True:
                     self.dx *= -1
                     self.dy *= -1
@@ -95,7 +94,6 @@ class Rival(Poligon):
             y = (self.attack.y - self.y) / ro
             self.dx = round(5 * x)
             self.dy = round(5 * y)
-
 
 
     def handle(self, key):

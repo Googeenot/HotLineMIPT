@@ -105,8 +105,8 @@ class Game():
 ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
 ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
 #<<<<<<< HEAD
-        self.shina[poligon].append(poligonn.bounds)
-        print(self.shina[poligon][0][0])
+        self.shina[poligon].append(poligonn)
+##        print(self.shina[poligon][0][0])
         self.objects.append(poligonn)
 
       def map(self):
@@ -159,30 +159,14 @@ class Game():
             #self.clock.tick(300000)
             #self.surface.blit(self.background_image, (-420, 0))
             while not self.game_over:
-#<<<<<<< HEAD
-                  #xx = self.p.map_x
-                  #yy = self.p.map_y
-#=======
-##                  xx = self.p.map_x
-##                  yy = self.p.map_y
-#>>>>>>> d70afdfbf1f40f2dd0d5c0bf5fb9d3ff3f57755f
+
                   self.surface.blit(self.background_image, (0, 0))
                   self.handle_events()
                   self.update()
                   self.draw()
-#<<<<<<< HEAD
-
-                  #xx += dx.Poligon(GameObject)
-                  #yy += dy.Poligon(GameObject)
-
-#=======
-##                  xx += dx.Poligon(GameObject)
-##                  yy += dy.Poligon(GameObject)
-                  self.surfaceh.blit(self.surface, (c.widht/2 - self.shina[poligon][0][0], c.height/2 - self.shina[poligon][0][1]))
+                  self.surfaceh.blit(self.surface, (c.widht/2 - self.shina[poligon][0].bounds[0], c.height/2 - self.shina[poligon][0].bounds[1]))
                   self.menu()
 
-
-#>>>>>>> d70afdfbf1f40f2dd0d5c0bf5fb9d3ff3f57755f
                   pygame.display.update()
                   self.clock.tick(self.frame_rate)
             #self.clock.tick(30000)

@@ -3,29 +3,7 @@ from GameObject import GameObject
 from random import choice, randrange as rnd
 import colors
 
-<<<<<<< HEAD
-class Bullet(GameObject):
-    def __init__(self):
-        GameObject.__init__(self, x, y, w, h)
-        self.color = choice([colors.BLACK, colors.RED2])
-        self.r = (w ** 2 + h ** 2) ** 0.5
-        self.x = x
-        self.y = y
-        self.mouse_button_pressed = False
 
-    def draw(self, surface):
-        pygame.draw.oval(surface, self.color, self.bounds)
-
-    def update(self):
-        dx = 0
-        dy = 0
-        if self.mouse_button_pressed:
-            pass
-        else:
-            self.move(dx, dy)
-
-=======
->>>>>>> f620cee3b31c24cd50616a9ade107f286ea54c9e
 
 class Pen(GameObject):
     def __init__(self, x, y, w, h, owner, vel = (0, 0)):
@@ -47,12 +25,10 @@ class Pen(GameObject):
         else:
             self.mouse_button_pressed = False
 
-    def update(self):
+    def update(self, p):
         if self.mouse_button_pressed:
             a = pygame.mouse.get_pos()[0]
             b = pygame.mouse.get_pos()[1]
-            if 615 < a < 640 and 0 < b < 15:
-                pygame.quit()
             a -= self.x
             b -= self.y
             line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
@@ -93,7 +69,7 @@ class Bullet(GameObject):
     def draw(self, surface):
         pygame.draw.oval(surface, self.color, self.bounds)
 
-    def update(self):
+    def update(self, p):
         dx = 0
         dy = 0
         if self.mouse_button_pressed:

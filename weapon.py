@@ -8,7 +8,6 @@ class Bullet(GameObject):
         GameObject.__init__(self, x, y, w, h)
         self.color = choice([colors.BLACK, colors.RED2])
         self.r = (w ** 2 + h ** 2) ** 0.5
-        self.velocity = vel
         self.x = x
         self.y = y
         self.mouse_button_pressed = False
@@ -20,7 +19,7 @@ class Bullet(GameObject):
         dx = 0
         dy = 0
         if self.mouse_button_pressed:
-            self.strike_movement()
+            pass
         else:
             self.move(dx, dy)
 

@@ -3,6 +3,7 @@ from GameObject import GameObject
 from random import choice, randrange as rnd
 import colors
 
+<<<<<<< HEAD
 class Bullet(GameObject):
     def __init__(self):
         GameObject.__init__(self, x, y, w, h)
@@ -23,6 +24,8 @@ class Bullet(GameObject):
         else:
             self.move(dx, dy)
 
+=======
+>>>>>>> f620cee3b31c24cd50616a9ade107f286ea54c9e
 
 class Pen(GameObject):
     def __init__(self, x, y, w, h, owner, vel = (0, 0)):
@@ -77,59 +80,23 @@ class Pen(GameObject):
         else:
             pass
 
-    def initialization_of_attack(self):
-        r = pygame.mouse.get_pos()
-        c = r[0] - self.x
-        d = r[1] - self.y
-        movement_vector = [c, d]
-        return movement_vector
+class Bullet(GameObject):
+    def __init__(self):
+        GameObject.__init__(self, x, y, w, h)
+        self.color = choice([colors.BLACK, colors.RED2])
+        self.r = (w ** 2 + h ** 2) ** 0.5
+        self.velocity = vel
+        self.x = x
+        self.y = y
+        self.mouse_button_pressed = False
 
+    def draw(self, surface):
+        pygame.draw.oval(surface, self.color, self.bounds)
 
-    def strike_calculations(self):
-        mv = self.initialization_of_attack()
-        line_length = (a ** 2 + b ** 2) ** 0.5
-        cos = a / line_length
-        sin = b / line_length
-        norm_mv = [cos, sin]
-        return norm_mv
-
-#<<<<<<< HEAD
-##    def strike_movement(self):
-##<<<<<<< HEAD
-##        #if pygame.mouse.get_pressed()[0]:
-##            mv = self.strike_calculations()
-##            dx = mv[0]
-##            dy = mv[1]
-##            self.move(dx, dy)
-##        #else:
-##           # pass
-##=======
-##        mv = self.strike_calculations()
-##        dx = mv[0]
-##        dy = mv[1]
-##        self.move(dx, dy)
-##>>>>>>> df38d0490200f04b23912a12088960fd7545a497
-#=======
- #   def strike_movement(self):
-#<<<<<<< HEAD
-#<<<<<<< HEAD
-        #if pygame.mouse.get_pressed()[0]:
-##            mv = self.strike_calculations()
-##            dx = mv[0]
-##            dy = mv[1]
-##            self.move(dx, dy)
-##        #else:
-##           # pass
-###=======
-####        mv = self.strike_calculations()
-####        dx = mv[0]
-####        dy = mv[1]
-####        self.move(dx, dy)
-###>>>>>>> df38d0490200f04b23912a12088960fd7545a497
-###=======
-##        mv = self.strike_calculations()
-##        a = a
-##        b = b
-##        self.move(a, b)
-#>>>>>>> 93e08b697c4b9b8865f47de78ec9081315783ba9
-#>>>>>>> be47813c604646ed9d98f8c888dc6ef6d57dba87
+    def update(self):
+        dx = 0
+        dy = 0
+        if self.mouse_button_pressed:
+            self.strike_movement()
+        else:
+            self.move(dx, dy)

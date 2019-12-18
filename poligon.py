@@ -66,8 +66,6 @@ class Poligon(GameObject):
 
             self.moving_down = not self.moving_down
 
-        if key == pygame.MOUSE_BUTTON_DOWN:
-            self.fire = 1
 
     def update(self, p):
 
@@ -105,8 +103,6 @@ class Poligon(GameObject):
             self.dy /= (1 / c.v) * (h ** 2 + self.dy ** 2) ** 0.5
 
             self.move(self.dx, self.dy)
-
-            print(Karta.k)
 
             b = True
 
@@ -181,8 +177,6 @@ class Enemies(Poligon):
         pygame.draw.rect(surface, self.color, self.bounds)
 
     def update(self, p):
-
-        print(self.attack[0])
 
         self.attack = p
 

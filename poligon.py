@@ -22,6 +22,7 @@ class Poligon(GameObject):
         self.map_y = -370
         self.dx = 0
         self.dy = 0
+        self.gun = True
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -35,6 +36,7 @@ class Poligon(GameObject):
             self.moving_up = not self.moving_up
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
+
     def update(self):
         if self.live:
             self.dx = 0

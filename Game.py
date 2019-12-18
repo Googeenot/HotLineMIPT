@@ -8,6 +8,7 @@ import Enemies
 #<<<<<<< HEAD
 import map
 #=======
+
 import weapon
 #>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
 class Game():
@@ -41,7 +42,6 @@ class Game():
             self.dy = 0
 
 #=======
-            print
 #>>>>>>> 0d69b4ec636b4ba156815197162ca66d105c8009
       def menu(self):
           x = 620
@@ -57,7 +57,8 @@ class Game():
 
       def update(self):
           for i in self.objects:
-                  i.update()
+              i.update()
+
 
 
       def draw(self):
@@ -99,8 +100,8 @@ class Game():
                           i = 1
 
       def create_poligon(self):
+        global poligonn
         poligonn = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5 )
-        self.p = poligonn
         self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
@@ -116,7 +117,7 @@ class Game():
       def create_enemies(self):
         r_en = []
         for i in range(Enemies.k_en):
-            r_en.append(poligon.Poligon(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5))
+            r_en.append(poligon.Enemies(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5, i, self.shina[poligon][0]))
         #self.keydown_handlers[pygame.K_LEFT].append(r_en[i].handle)
         #self.keydown_handlers[pygame.K_RIGHT].append(r_en[i].handle)
         #self.keydown_handlers[pygame.K_UP].append(r_en[i].handle)
@@ -125,7 +126,7 @@ class Game():
         ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
         ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
         # <<<<<<< HEAD
-            self.shina[poligon].append(r_en[i])
+            #self.shina[poligon].append(r_en[i])
         ##        print(self.shina[poligon][0][0])
 
       def map(self):
@@ -164,7 +165,7 @@ class Game():
 
       def create_objects(self):
             self.create_poligon()
-            self.create_pen()
+            #self.create_pen()
             self.create_enemies()
             #self.create_rival()
       def movecamera(self):
@@ -219,6 +220,7 @@ class Game():
                   self.draw()
                   self.movecamera()
                   self.menu()
+
 
                   pygame.display.update()
                   self.clock.tick(self.frame_rate)

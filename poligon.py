@@ -34,6 +34,7 @@ class Poligon(GameObject):
             self.moving_up = not self.moving_up
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
+
     def update(self):
         if self.live:
             self.dx = 0
@@ -54,7 +55,12 @@ class Poligon(GameObject):
             self.move(self.dx, self.dy)
             b = True
             for i in range(Karta.k):
-                if self.bounds.colliderect(Karta.map_rect[i]):
+
+                if self.bounds.colliderect(Karta.map_rect[i]) == True:
+                    self.moving_left = False
+                    self.moving_right = False
+                    self.moving_up = False
+                    self.moving_down = False
                     self.dx *= -1
                     self.dy *= -1
                     b = False

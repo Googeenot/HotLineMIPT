@@ -3,12 +3,11 @@ from collections import defaultdict
 import sys
 import config as c
 import poligon
-
-#<<<<<<< HEAD
+import Enemies
 import map
-#=======
 import weapon
-#>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
+
+
 class Game():
       def __init__(self, surface):
             self.surfaceh = surface
@@ -29,9 +28,9 @@ class Game():
             self.mouse_handlers = defaultdict(list)
             self.game_over = False
             self.p = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5)
-#<<<<<<< HEAD
             self.pause_game = None
-
+            self.dx = 0
+            self.dy = 0
 
       def menu(self):
           x = 620
@@ -106,6 +105,32 @@ class Game():
         self.shina[poligon].append(poligonn)
         self.objects.append(poligonn)
 
+
+      def create_enemies(self):
+        r_en = []
+        for i in range(Enemies.k_en):
+            r_en.append(poligon.Poligon(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5))
+            self.objects.append(r_en[i])
+            self.shina[poligon].append(r_en[i])
+
+      def map(self):
+            poligonn = map.Map(20, 20, 10, 10, (100, 100, 100), 5)
+
+
+            self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
+            self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
+            self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
+            self.keydown_handlers[pygame.K_DOWN].append(poligonn.handle)
+            print(self.keydown_handlers)
+            ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
+            ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
+
+            self.objects.append(poligonn)
+      def create_objects(self):
+          self.map()
+          self.create_poligon()
+          self.create_enemies()
+
       def create_pen(self):
             pen = weapon.Pen(550, 250, 10, 10, self.p)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
@@ -119,7 +144,41 @@ class Game():
       def create_objects(self):
             self.create_poligon()
             self.create_pen()
-            self.create_rival()
+            self.create_enemies()
+            #self.create_rival()
+
+      def movecamera(self):
+            dx = -2
+            dy = -2
+            if self.shina[poligon][0].moving_left:
+                  if self.dx < 24:
+                        self.dx -=dx
+            elif self.shina[poligon][0].moving_right:
+                  if self.dx> -24:
+                        self.dx +=dx
+            else:
+                        
+                  if self.dx>0:
+                        self.dx+=dx
+                  elif self.dx<0:
+                        self.dx-=dx
+                  
+            if self.shina[poligon][0].moving_up:
+                  if self.dy < 24:
+                        self.dy -=dy
+            elif self.shina[poligon][0].moving_down:
+                  if self.dy > -24:
+                        self.dy +=dy
+            else:
+                  if self.dy>0:
+                        self.dy+=dy
+                  elif self.dy<0:
+                        self.dy-=dy
+                  
+                  
+            x = self.shina[poligon][0].bounds[0]+self.dx
+            y = self.shina[poligon][0].bounds[1]+self.dy
+            self.surfaceh.blit(self.surface, (c.widht/2 - x, c.height/2 - y))
 
       def run(self):
             self.background_image = pygame.image.load(c.back_image)
@@ -136,12 +195,12 @@ class Game():
                   self.handle_events()
                   self.update()
                   self.draw()
-                  self.surfaceh.blit(self.surface, (c.widht/2 - self.shina[poligon][0].bounds[0], c.height/2 - self.shina[poligon][0].bounds[1]))
+                  self.movecamera()
                   self.menu()
 
                   pygame.display.update()
                   self.clock.tick(self.frame_rate)
-            #self.clock.tick(30000)
+
       def uploadlevel(self):
             pass
 

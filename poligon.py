@@ -1,5 +1,6 @@
 import pygame
 import Karta
+import Enemies
 import Game
 import config as c
 from GameObject import GameObject
@@ -73,7 +74,6 @@ class Poligon(GameObject):
             #self.map_y -= self.dy
         else:
             pass
-
     def attack_check(self, weap, rival):
         if weap.mouse_button_pressed:
             if pygame.Rect.colliderect(weap, rival):
@@ -84,11 +84,12 @@ class Poligon(GameObject):
             pass
 
 
-class Rival(Poligon):
-    def __init__(self, x, y, w, h, color, offset, p):
+class Enemies(Poligon):
+    def __init__(self, x, y, w, h, color, offset, k, p):
         Poligon.__init__(self, x, y, w, h, color, offset)
         self.attack = p
         self.r_attack = 50
+        self.k = k
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -108,6 +109,35 @@ class Rival(Poligon):
                     self.dy = 0
                     break
             self.move(self.dx, self.dy)
+
+        print(self.attack.x)
+        #self.attack = Game.Game.self.p
+        self.dx = 0
+        self.dy = 0
+        if ((self.x - self.attack.x) ** 2 + (self.y - self.attack.y) ** 2) ** 0.5 <= self.r_attack:
+            ro = ((self.x - self.attack.x)** 2 + (self.y - self.attack.y) ** 2) ** 0.5
+            x = (self.attack.x - self.x) / ro
+            y = (self.attack.y - self.y) / ro
+            self.dx = round(1 * x)
+            self.dy = round(1 * y)
+        self.move(self.dx, self.dy)
+        b = True
+        for i in range(Karta.k):
+            if self.bounds.colliderect(Karta.map_rect[i]) == True:
+                self.moving_left = False
+                self.moving_right = False
+                self.moving_up = False
+                self.moving_down = False
+
+                self.dx *= -1
+                self.dy *= -1
+                b = False
+                break
+        if b:
+            self.dx = 0
+            self.dy = 0
+        self.move(self.dx, self.dy)
+
 
 
     def handle(self, key):

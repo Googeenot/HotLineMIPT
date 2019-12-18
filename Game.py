@@ -33,20 +33,21 @@ class Game():
             self.dy = 0
 
       def menu(self):
-          x = 620
-          y = 0
-          w = 20
-          h = 10
-          exit_game = pygame.rect.Rect(x, y, w, h)
-          pygame.draw.rect(self.surfaceh, (100, 0, 0), exit_game)
-          self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
-          self.pause_game = pause_game = pygame.rect.Rect(x - 30, y, w + 10, h)
-          pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_game)
-          self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 30, y))
+            x = 620
+            y = 0
+            w = 20
+            h = 10
+            self.exit_game = exit_game = pygame.rect.Rect(x, y, w, h)
+            pygame.draw.rect(self.surfaceh, (100, 0, 0), exit_game)
+            self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
+            self.pause_game = pause_game = pygame.rect.Rect(x - 30, y, w + 10, h)
+            pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_game)
+            self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 30, y))
 
       def update(self):
           for i in self.objects:
-                  i.update()
+              i.update()
+
 
 
       def draw(self):
@@ -74,6 +75,9 @@ class Game():
                         handler(event.type, event.pos)
                 if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
                     self.pause()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.exit_game.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
 
       def pause(self):
           pause_menu = pygame.rect.Rect(300, 150, 90, 45)
@@ -96,7 +100,7 @@ class Game():
           print(self.keydown_handlers)
 
       def create_poligon(self):
-        poligonn = self.p
+        poligonn = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5 )
         self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
@@ -107,29 +111,30 @@ class Game():
 
 
       def create_enemies(self):
-        r_en = []
-        for i in range(Enemies.k_en):
-            r_en.append(poligon.Poligon(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5))
-            self.objects.append(r_en[i])
-            self.shina[poligon].append(r_en[i])
+            r_en = []
+            for i in range(Enemies.k_en):
+                r_en.append(poligon.Poligon(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5))
+                self.objects.append(r_en[i])
+                self.shina[poligon].append(r_en[i])
+                r_en.append(poligon.Enemies(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5, i, self.shina[poligon][0]))
+            #self.keydown_handlers[pygame.K_LEFT].append(r_en[i].handle)
+            #self.keydown_handlers[pygame.K_RIGHT].append(r_en[i].handle)
+            #self.keydown_handlers[pygame.K_UP].append(r_en[i].handle)
+            #self.keydown_handlers[pygame.K_DOWN].append(r_en[i].handle)
+                self.objects.append(r_en[i])
+        ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
+        ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
+        # <<<<<<< HEAD
+            #self.shina[poligon].append(r_en[i])
+        ##        print(self.shina[poligon][0][0])
 
-      def map(self):
-            poligonn = map.Map(20, 20, 10, 10, (100, 100, 100), 5)
-
-
-            self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
-            self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
-            self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
-            self.keydown_handlers[pygame.K_DOWN].append(poligonn.handle)
-            print(self.keydown_handlers)
             ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
             ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
-
-            self.objects.append(poligonn)
       def create_objects(self):
-          self.map()
+          #self.map()
           self.create_poligon()
           self.create_enemies()
+          self.create_pen()
 
       def create_pen(self):
             pen = weapon.Pen(550, 250, 10, 10, self.p)
@@ -140,12 +145,6 @@ class Game():
       def create_rival(self):
           riv_1 = poligon.Rival(200, 200, 10, 10, (100, 100, 50), 5, self.p)
           self.objects.append(riv_1)
-
-      def create_objects(self):
-            self.create_poligon()
-            self.create_pen()
-            self.create_enemies()
-            #self.create_rival()
 
       def movecamera(self):
             dx = -2
@@ -197,6 +196,7 @@ class Game():
                   self.draw()
                   self.movecamera()
                   self.menu()
+
 
                   pygame.display.update()
                   self.clock.tick(self.frame_rate)

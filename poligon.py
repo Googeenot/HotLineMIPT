@@ -56,7 +56,6 @@ class Poligon(GameObject):
             self.move(self.dx, self.dy)
             b = True
             for i in range(Karta.k):
-
                 if self.bounds.colliderect(Karta.map_rect[i]) == True:
                     self.moving_left = False
                     self.moving_right = False
@@ -74,6 +73,7 @@ class Poligon(GameObject):
             #self.map_y -= self.dy
         else:
             pass
+
     def attack_check(self, weap, rival):
         if weap.mouse_button_pressed:
             if pygame.Rect.colliderect(weap, rival):

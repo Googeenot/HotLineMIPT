@@ -85,9 +85,11 @@ class Game():
                     handler(event.type, event.pos)
                 if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
                     self.pause()
-                if event.type == pygame.MOUSEBUTTONDOWN and self.exit_game.collidepoint(event.pos):
+                elif event.type == pygame.MOUSEBUTTONDOWN and self.exit_game.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
+                else:
+                    self.create_bullet(event.pos)
 
     def pause(self):
         pause_menu = pygame.rect.Rect(300, 150, 90, 45)
@@ -100,6 +102,9 @@ class Game():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if pause_menu.collidepoint(event.pos):
                         i = 1
+
+    def create_bullet(self):
+        pass
 
     def create_poligon(self):
         self.p = poligonn = poligon.Poligon(500, 250, 10, 10, (100, 100, 100), 5)

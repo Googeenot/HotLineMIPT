@@ -2,6 +2,7 @@ import pygame
 from GameObject import GameObject
 from random import choice, randrange as rnd
 import colors
+import Karta
 
 
 class Pen(GameObject):
@@ -26,14 +27,26 @@ class Pen(GameObject):
 
     def update(self, p):
         if self.mouse_button_pressed:
-            a = pygame.mouse.get_pos()[0]
-            b = pygame.mouse.get_pos()[1]
+            a = pygame.mouse.get_pos()[0] + 180
+            b = pygame.mouse.get_pos()[1] + 50
             a -= self.x
             b -= self.y
             line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
-            a = round(a / line_length)
-            b = round(b / line_length)
-            self.move(5*a, 5*b)
+            self.dx = round(a / line_length)
+            self.dy = round(b / line_length)
+            self.move(self.dx, self.dy)
+            b = True
+            for i in range(Karta.k):
+                if self.bounds.colliderect(Karta.map_rect[i]) == True:
+                    self.dx *= -1
+                    self.dy *= -1
+                    b = False
+                    break
+            if b:
+                self.dx = 0
+                self.dy = 0
+            self.move(self.dx, self.dy)
+
         else:
             if self.x != self.owner.x + 20 or self.y != self.owner.y:
                 self.move(self.owner.x + 20 - self.x, self.owner.y - self.y)

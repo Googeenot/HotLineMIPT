@@ -57,22 +57,42 @@ class Pen(GameObject):
             pass
 
 class Bullet(GameObject):
-    def __init__(self):
-        GameObject.__init__(self, x, y, w, h)
+    def __init__(self, w, h, poligon_owner, dots):
+        self.p = poligon_owner
+        GameObject.__init__(self, self.p.x, self.p.y, w, h)
         self.color = choice([colors.BLACK, colors.RED2])
         self.r = (w ** 2 + h ** 2) ** 0.5
         self.velocity = vel
-        self.x = x
-        self.y = y
+        self.x = self.p.x
+        self.y = self.p.y
         self.mouse_button_pressed = False
+        self.live = 0
+        self.dots = dots
 
     def draw(self, surface):
         pygame.draw.oval(surface, self.color, self.bounds)
 
-    def update(self, p):
-        dx = 0
-        dy = 0
-        if self.mouse_button_pressed:
-            self.strike_movement()
+    def hittests(self, en):
+        if pygame.Rect.colliderect(self, en):
+            en.live = 0
+            self.live = 0
+            self.kill()
         else:
-            self.move(dx, dy)
+            self.live = 1
+
+    def m_position(self):
+        a = pygame.mouse.get_pos()[0] + 180
+        b = pygame.mouse.get_pos()[1] + 50
+        mp = (a, b)
+        return mp
+
+    def update(self, p):
+        dots = self.dots
+        a = dots[0]
+        b = dots[1]
+        a -= self.x
+        b -= self.y
+        line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
+        a = round(a / line_length)
+        b = round(b / line_length)
+        self.move(5 * a, 5 * b)

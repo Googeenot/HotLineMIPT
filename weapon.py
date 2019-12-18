@@ -24,12 +24,10 @@ class Pen(GameObject):
         else:
             self.mouse_button_pressed = False
 
-    def update(self):
+    def update(self, p):
         if self.mouse_button_pressed:
             a = pygame.mouse.get_pos()[0]
             b = pygame.mouse.get_pos()[1]
-            if 615 < a < 640 and 0 < b < 15:
-                pygame.quit()
             a -= self.x
             b -= self.y
             line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
@@ -70,7 +68,7 @@ class Bullet(GameObject):
     def draw(self, surface):
         pygame.draw.oval(surface, self.color, self.bounds)
 
-    def update(self):
+    def update(self, p):
         dx = 0
         dy = 0
         if self.mouse_button_pressed:

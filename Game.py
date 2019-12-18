@@ -55,9 +55,9 @@ class Game():
           pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_game)
           self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 30, y))
 
-      def update(self):
+      def update(self, ):
           for i in self.objects:
-              i.update()
+              i.update(self.shina[poligon][0].bounds)
 
 
 
@@ -117,7 +117,7 @@ class Game():
       def create_enemies(self):
         r_en = []
         for i in range(Enemies.k_en):
-            r_en.append(poligon.Enemies(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5, i, self.shina[poligon][0]))
+            r_en.append(poligon.Enemies(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5, i, self.shina[poligon][0].bounds))
         #self.keydown_handlers[pygame.K_LEFT].append(r_en[i].handle)
         #self.keydown_handlers[pygame.K_RIGHT].append(r_en[i].handle)
         #self.keydown_handlers[pygame.K_UP].append(r_en[i].handle)

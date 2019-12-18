@@ -35,7 +35,7 @@ class Poligon(GameObject):
             self.moving_up = not self.moving_up
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
-    def update(self):
+    def update(self, p):
         if self.live:
             self.dx = 0
             self.dy = 0
@@ -88,27 +88,27 @@ class Enemies(Poligon):
     def __init__(self, x, y, w, h, color, offset, k, p):
         Poligon.__init__(self, x, y, w, h, color, offset)
         self.attack = p
-        self.r_attack = 50
+        self.r_attack = 100
         self.k = k
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
 
-    def update(self):
-        print(self.attack.x)
-        #self.attack = Game.Game.self.p
+    def update(self, p):
+        print(self.attack[0])
+        self.attack = p
         self.dx = 0
         self.dy = 0
-        if ((self.x - self.attack.x) ** 2 + (self.y - self.attack.y) ** 2) ** 0.5 <= self.r_attack:
-            ro = ((self.x - self.attack.x)** 2 + (self.y - self.attack.y) ** 2) ** 0.5
-            x = (self.attack.x - self.x) / ro
-            y = (self.attack.y - self.y) / ro
+        if ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
+            ro = ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5
+            x = (self.attack[0] - self.x) / ro
+            y = (self.attack[1] - self.y) / ro
             self.dx = round(1 * x)
             self.dy = round(1 * y)
         self.move(self.dx, self.dy)
         b = True
         for i in range(Karta.k):
-            if self.bounds.colliderect(Karta.map_rect[i]) == True:
+            if self.bounds.colliderect(Karta.map_rect[i]):
                 self.moving_left = False
                 self.moving_right = False
                 self.moving_up = False

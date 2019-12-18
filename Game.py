@@ -48,7 +48,7 @@ class Game():
           y = 0
           w = 20
           h = 10
-          exit_game = pygame.rect.Rect(x, y, w, h)
+          self.exit_game = exit_game = pygame.rect.Rect(x, y, w, h)
           pygame.draw.rect(self.surfaceh, (100, 0, 0), exit_game)
           self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
           self.pause_game = pause_game = pygame.rect.Rect(x - 30, y, w + 10, h)
@@ -86,6 +86,8 @@ class Game():
                         handler(event.type, event.pos)
                 if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
                     self.pause()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.exit_game.collidepoint(event.pos):
+                    pygame.quit()
 
       def pause(self):
           pause_menu = pygame.rect.Rect(300, 150, 90, 45)
@@ -146,17 +148,12 @@ class Game():
           self.map()
           self.create_poligon()
           self.create_enemies()
+          self.create_pen()
 
       def create_pen(self):
-#<<<<<<< HEAD
-            pen = weapon.Pen(60, 60, 10, 10, (100, 200, 100), 0)
-            #self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
-            #self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
-#=======
             pen = weapon.Pen(550, 250, 10, 10, self.p)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
-            self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)           
-#>>>>>>> 93e08b697c4b9b8865f47de78ec9081315783ba9
+            self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)
             self.objects.append(pen)
 
       def create_rival(self):

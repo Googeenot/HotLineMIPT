@@ -96,7 +96,7 @@ class Enemies(Poligon):
 
     def update(self):
         print(self.attack.x)
-        self.attack = Game.Game.self.p
+        #self.attack = Game.Game.self.p
         self.dx = 0
         self.dy = 0
         if ((self.x - self.attack.x) ** 2 + (self.y - self.attack.y) ** 2) ** 0.5 <= self.r_attack:

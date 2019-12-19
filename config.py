@@ -5,12 +5,13 @@ widht = 640 #ширина экрана
 height = 400 #высота экрана
 widhtkarta= 1000 #ширина экрана
 heightkarta = 1000 #высота экрана
-
+cursor = 'media//cursor.png'
 back_image_filename = 'media//headpiece.png' #изображение на задний фон
 frame_rate = 30  #FPS часттат обновления экрана (колличество обновлений в секунду)
 fon  = 'media//fon.png'
 v = 5 #скорость челика
 font = 'Arial'
+stop = 'media//stop.png'
 #<<<<<<< HEAD
 map = 'media//map.png'
 #=======

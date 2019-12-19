@@ -37,6 +37,9 @@ class Game():
             self.p = None
 #<<<<<<< HEAD
             self.pause_game = None
+            #self.shina[x].append(0)
+            #self.shina[y].append(0)
+
 
             self.dx = 0
             self.dy = 0
@@ -103,12 +106,16 @@ class Game():
 
       def create_poligon(self):
         global poligonn
-        poligonn = poligon.Poligon(500, 250, 10,10, (100, 100,100), 5 )
+        poligonn = poligon.Poligon(500, 250, 20, 20, (100, 100,100), 5 , self.shina )
         self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
         self.keydown_handlers[pygame.K_DOWN].append(poligonn.handle)
         self.objects.append(poligonn)
+        
+        #self.keydown_handlers[pygame.K_DOWN]
+            
+        
 ##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
 ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
 #<<<<<<< HEAD
@@ -194,9 +201,9 @@ class Game():
                         self.dy-=dy
                   
                   
-            x = self.shina[poligon][0].bounds[0]+self.dx
-            y = self.shina[poligon][0].bounds[1]+self.dy
-            self.surfaceh.blit(self.surface, (c.widht/2 - x, c.height/2 - y))
+            x= c.widht/2 - (self.shina[poligon][0].bounds[0]+self.dx)
+            y= c.height/2 - (self.shina[poligon][0].bounds[1]+self.dy)
+            self.surfaceh.blit(self.surface, (x, y))
 
       def run(self):
             self.background_image = pygame.image.load(c.back_image)

@@ -4,11 +4,14 @@ import Enemies
 import Game
 import config as c
 from GameObject import GameObject
+import math
+
 
 
 class Poligon(GameObject):
-    def __init__(self, x, y, w, h, color, offset):
+    def __init__(self, x, y, w, h, color, offset, shina=None):
         GameObject.__init__(self, x, y, w, h)
+        self.shina = shina
         self.x = x
         self.y = y
         self.color = color
@@ -22,9 +25,21 @@ class Poligon(GameObject):
         self.map_y = -370
         self.dx = 0
         self.dy = 0
+        self.image = pygame.image.load(c.stop)
+        self.image = pygame.transform.scale(self.image, (40, 40))
+        self.angle = 0
 
     def draw(self, surface):
-        pygame.draw.rect(surface, self.color, self.bounds)
+        #pygame.draw.rect(surface, self.color, self.bounds)
+        try:
+            x, y = pygame.mouse.get_pos()
+            self.angle = 180*math.atan2(y-self.bounds[1]+10, (x-self.bounds[0]-10))/math.pi
+            
+            
+            #print(self.angle)
+            surface.blit(pygame.transform.rotate(self.image, self.angle), (self.bounds[0]-10, self.bounds[1]-10))
+        except:
+            pass
 
     def handle(self, key):
         if key == pygame.K_LEFT:
@@ -53,7 +68,7 @@ class Poligon(GameObject):
             self.dx  /= (1 / c.v) * (self.dx ** 2 + self.dy ** 2) ** 0.5
             self.dy  /= (1 / c.v) * (h ** 2 + self.dy ** 2) ** 0.5
             self.move(self.dx, self.dy)
-            print(Karta.k)
+
             b = True
             for i in range(Karta.k):
                 if self.bounds.colliderect(Karta.map_rect[i]) == True:
@@ -74,6 +89,8 @@ class Poligon(GameObject):
             #self.map_y -= self.dy
         else:
             pass
+
+        
     def attack_check(self, weap, rival):
         if weap.mouse_button_pressed:
             if pygame.Rect.colliderect(weap, rival):
@@ -95,7 +112,6 @@ class Enemies(Poligon):
         pygame.draw.rect(surface, self.color, self.bounds)
 
     def update(self, p):
-        print(self.attack[0])
         self.attack = p
         self.dx = 0
         self.dy = 0

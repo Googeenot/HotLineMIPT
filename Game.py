@@ -85,7 +85,8 @@ class Game():
                                 pygame.MOUSEBUTTONUP, 
                                 pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers[event.type]:
-                        handler(event.type, event.pos)
+
+                        handler(event.type, event.pos, event.button, self.shina[poligon][0])
                         
                 if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
                     self.pause()
@@ -179,14 +180,14 @@ class Game():
             ##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
 
             self.objects.append(poligonn)
-      def create_objects(self):
-          self.map()
-          self.create_poligon()
-          self.create_enemies()
-          self.create_pen()
+##      def create_objects(self):
+##          self.map()
+##          self.create_poligon()
+##          self.create_enemies()
+##          self.create_pen()
 
       def create_gun(self):
-            gun = weapon.Gun(550, 250, 50, 50, self.p)
+            gun = weapon.Gun(550, 250, 50, 50, self.shina[poligon][0].bounds)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(gun.handle)
             self.mouse_handlers[pygame.MOUSEBUTTONUP].append(gun.handle)
             self.objects.append(gun)

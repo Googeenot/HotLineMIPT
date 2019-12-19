@@ -36,7 +36,7 @@ class Poligon(GameObject):
 
         self.moving_down = False
         
-        self.beweapon = True
+        self.beweapon = False
 
         self.live = 1
 

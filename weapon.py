@@ -26,7 +26,7 @@ class Pen(GameObject):
         else:
             self.mouse_button_pressed = False
 
-    def update(self, p, deltax, deltay):
+    def update(self, p, deltax, deltay, button):
         if self.mouse_button_pressed:
             a = pygame.mouse.get_pos()[0] + 180
             b = pygame.mouse.get_pos()[1] + 50
@@ -90,14 +90,20 @@ class Gun:
 
     def draw(self, surface):
         if not self.beowner:
-            surface.blit(self.image, (self.bounds[0]-25, self.bounds[1]-25))
+            surface.blit(self.image, (self.bounds[0]+25, self.bounds[1]+25))
             
-    def handle(self, key, pos): #pos это координаты мыши
+    def handle(self, key, pos, button, owner): #pos это координаты мыши
+        print(button)
+        self.owner = owner
+        if  self.beowner:
+            self.bounds[0] = self.owner.bounds[0]
+            self.bounds[1] = self.owner.bounds[1]
         if key == pygame.MOUSEBUTTONDOWN:
-            self.mouse_button_pressed = True
-        else:
-            self.mouse_button_pressed = False
-
+            if button == 3:
+                if self.bounds.colliderect(self.owner.bounds):
+                    self.beowner = not self.beowner
+                    self.owner.beweapon =  not self.owner.beweapon
+                    
 
             
 

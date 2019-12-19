@@ -46,12 +46,48 @@ class Poligon(GameObject):
 
         self.dy = 0
 
-        self.image = pygame.image.load(c.stop)
-        self.image = pygame.transform.scale(self.image, (40, 40))
+        self.imagestop = pygame.image.load(c.stop)
+        self.imagestop = pygame.transform.scale(self.imagestop, (40, 40))
+        self.image = self.imagestop
+        self.imagegoright = pygame.image.load(c.goright)
+        self.imagegoright = pygame.transform.scale(self.imagegoright, (40, 40))
+        self.imagegoleft = pygame.image.load(c.goleft)
+        self.imagegoleft = pygame.transform.scale(self.imagegoleft, (40, 40))
+        self.time = 0
+        
         self.angle = 0
+
+        self.left_right = True
+        self.nonestop = False
 
     def draw(self, surface):
         #pygame.draw.rect(surface, self.color, self.bounds)
+        if (self.moving_left or self.moving_right or self.moving_up or self.moving_down):
+            
+            if self.nonestop:
+                self.image = self.imagestop
+                if ( pygame.time.get_ticks() - self.time)>100:
+                    self.time = pygame.time.get_ticks()
+                    self.nonestop = False
+
+                    
+            elif self.left_right:
+                self.image =  self.imagegoright
+                if ( pygame.time.get_ticks() - self.time)>100:
+                    self.time = pygame.time.get_ticks()
+                    self.left_right = not self.left_right
+                    self.nonestop = True
+
+            else:
+                self.image =  self.imagegoleft
+                if ( pygame.time.get_ticks() - self.time)>100:
+                    self.time = pygame.time.get_ticks()
+                    self.left_right = not self.left_right
+                    self.nonestop = True
+
+        else:    
+                self.image = self.imagestop
+            
  
         surface.blit(pygame.transform.rotate(self.image, self.angle), (self.bounds[0]-10, self.bounds[1]-10))
 

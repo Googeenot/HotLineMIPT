@@ -12,6 +12,8 @@ fon  = 'media//fon.png'
 v = 5 #скорость челика
 font = 'Arial'
 stop = 'media//stop.png'
+goright = 'media//goright.png'
+goleft = 'media//goleft.png'
 #<<<<<<< HEAD
 map = 'media//map.png'
 #=======

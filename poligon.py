@@ -52,15 +52,9 @@ class Poligon(GameObject):
 
     def draw(self, surface):
         #pygame.draw.rect(surface, self.color, self.bounds)
-        try:
-            x, y = pygame.mouse.get_pos()
-            self.angle = 180*math.atan2(y-self.bounds[1]+10, (x-self.bounds[0]-10))/math.pi
-            
-            
-            #print(self.angle)
-            surface.blit(pygame.transform.rotate(self.image, self.angle), (self.bounds[0]-10, self.bounds[1]-10))
-        except:
-            pass
+ 
+        surface.blit(pygame.transform.rotate(self.image, self.angle), (self.bounds[0]-10, self.bounds[1]-10))
+
 
         self.fire = 0
 
@@ -83,7 +77,16 @@ class Poligon(GameObject):
             self.moving_down = not self.moving_down
 
 
-    def update(self, p):
+    def update(self, p, deltax, deltay):
+        x, y = pygame.mouse.get_pos()
+
+        x = x - c.widht/2 + p[0] - deltax
+        y = y - c.height/2 + p[1] - deltay
+
+        
+        self.angle = - 180*math.atan2(y-self.bounds[1]+10, (x-self.bounds[0]-10))/math.pi +90
+
+
 
         if self.live:
 
@@ -192,7 +195,7 @@ class Enemies(Poligon):
 
         pygame.draw.rect(surface, self.color, self.bounds)
 
-    def update(self, p):
+    def update(self, p, deltax, deltay):
 
         self.attack = p
 

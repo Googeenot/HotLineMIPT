@@ -58,7 +58,7 @@ class Game():
 
       def update(self, ):
           for i in self.objects:
-              i.update(self.shina[poligon][0].bounds)
+              i.update(self.shina[poligon][0].bounds, self.dx, self.dy)
 
 
 
@@ -80,6 +80,7 @@ class Game():
                 for handler in self.keydown_handlers[event.key]:
                     handler(event.key)
 
+
             elif event.type in (pygame.MOUSEBUTTONDOWN, 
                                 pygame.MOUSEBUTTONUP, 
                                 pygame.MOUSEMOTION):
@@ -87,20 +88,47 @@ class Game():
                         handler(event.type, event.pos)
                 if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
                     self.pause()
-                if event.type == pygame.MOUSEBUTTONDOWN and self.exit_game.collidepoint(event.pos):
+                elif event.type == pygame.MOUSEBUTTONDOWN and self.exit_game.collidepoint(event.pos):
                     pygame.quit()
+                    sys.exit()
+                else:
+                    self.create_bullet(event.pos)
+
 
       def pause(self):
-          pause_menu = pygame.rect.Rect(300, 150, 90, 45)
-          pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_menu)
-          self.surfaceh.blit(pygame.font.SysFont(c.font, 40).render('Go on', False, (200, 100, 50)), (300, 150))
-          pygame.display.update()
-          i = 0
-          while i != 1:
-              for event in pygame.event.get():
-                  if event.type == pygame.MOUSEBUTTONDOWN:
-                      if pause_menu.collidepoint(event.pos):
-                          i = 1
+
+        pause_menu = pygame.rect.Rect(280, 150, 90, 45)
+        pygame.draw.rect(self.surfaceh, (0, 200, 0), pause_menu)
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 40).render('Go on', False, (0, 50, 0)), (280, 150))
+
+        exit_menu = pygame.rect.Rect(280, 200, 90, 45)
+        pygame.draw.rect(self.surfaceh, (200, 10, 0), exit_menu)
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 40).render('  Exit', False, (0, 0, 0)), (280, 200))
+
+        pygame.display.update()
+
+        i = 0
+
+        while i != 1:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pause_menu.collidepoint(event.pos):
+                        i = 1
+                    elif exit_menu.collidepoint(event.pos):
+                        pygame.quit()
+                        sys.exit()
+
+      def create_bullet(self, pos):
+        p = self.shina[poligon][0].bounds
+        x = self.shina[poligon][0].bounds[0] + self.dx
+        y = self.shina[poligon][0].bounds[1] + self.dy
+        pos = list(pos)
+        pos[0] += x - c.widht/2
+        pos[1] += y - c.height/2
+        b = weapon.Bullet(p.x + 5, p.y + 5, 3, 3, pos)
+        self.objects.append(b)
+
+
 
       def create_poligon(self):
         global poligonn
@@ -200,6 +228,7 @@ class Game():
                   
                   
             x= c.widht/2 - (self.shina[poligon][0].bounds[0]+self.dx)
+            
             y= c.height/2 - (self.shina[poligon][0].bounds[1]+self.dy)
             self.surfaceh.blit(self.surface, (x, y))
 

@@ -58,9 +58,12 @@ class Game():
           self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 30, y))
 
       def update(self, ):
-          for i in range(len(self.objects)):
+          i = 0
+          while i < len(self.objects):
               if self.objects[i].update(self.shina, self.dx, self.dy) == False:
                   del self.objects[i]
+                  i -= 1
+              i += 1
 
 
 

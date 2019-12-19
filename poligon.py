@@ -263,9 +263,9 @@ class Enemies(Poligon):
 
         self.k = k
 
-    def draw(self, surface):
-
-        pygame.draw.rect(surface, self.color, self.bounds)
+##    def draw(self, surface):
+##
+##        pygame.draw.rect(surface, self.color, self.bounds)
 
 
 

@@ -26,7 +26,7 @@ class Pen(GameObject):
         else:
             self.mouse_button_pressed = False
 
-    def update(self, p):
+    def update(self, p, deltax, deltay):
         if self.mouse_button_pressed:
             a = pygame.mouse.get_pos()[0] + 180
             b = pygame.mouse.get_pos()[1] + 50
@@ -96,6 +96,7 @@ class Bullet(GameObject):
         mp = (a, b)
         return mp
 
+<<<<<<< HEAD
     def update(self, p):
         if self.mo:
             dots = self.dots
@@ -114,3 +115,15 @@ class Bullet(GameObject):
                     break
             self.move(a, b)
 
+=======
+    def update(self, p, deltax, deltay):
+        dots = self.dots
+        a = dots[0]
+        b = dots[1]
+        a -= self.x
+        b -= self.y
+        line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
+        a = round(5 * a / line_length)
+        b = round(5 * b / line_length)
+        self.move(a, b)
+>>>>>>> c0db51ee5458ca83e76bb2b6bf0cb19b2bd2ac05

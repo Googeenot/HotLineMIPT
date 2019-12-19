@@ -16,6 +16,7 @@ class HotlineMIPT:
             print(self.clock)
             self.objects = []
             self.clock = pygame.time.Clock()
+            #pygame.cursors.load_xbm(c.cursor, c.cursor)
 
             
 ##            self.keydown_handlers = defaultdict(list)

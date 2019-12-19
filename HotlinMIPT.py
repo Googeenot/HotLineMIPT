@@ -43,11 +43,9 @@ class HotlineMIPT:
             self.background_image = pygame.image.load(c.back_image_filename)
             self.surface.blit(self.background_image, (-420, 0))
             pygame.display.update()
-#<<<<<<< HEAD
-            self.clock.tick(1)            
-#=======
+
             self.clock.tick(30)
-#>>>>>>> 93e08b697c4b9b8865f47de78ec9081315783ba9
+
       def menu(self):
             #self.background_image = pygame.image.load(c.back_image)
             #self.surface.blit(self.background_image, (-420, 0))
@@ -63,7 +61,7 @@ class HotlineMIPT:
                   for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                               if start_game.collidepoint(event.pos):
-                                    Game.Game(self.surface).run() #функция вызывает основную игру
+                                    Game.Game(self.surface).run()
                               if exit_game.collidepoint(event.pos):
                                     pygame.quit()
                                     sys.exit()

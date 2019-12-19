@@ -2,41 +2,22 @@ import pygame
 from GameObject import GameObject
 from random import choice, randrange as rnd
 import colors
+import Karta
 
-class Bullet(GameObject):
-    def __init__(self):
-        GameObject.__init__(self, x, y, w, h)
-        self.color = choice([colors.BLACK, colors.RED2])
-        self.r = (w ** 2 + h ** 2) ** 0.5
-        self.velocity = vel
-        self.x = x
-        self.y = y
-        self.mouse_button_pressed = False
-
-    def draw(self, surface):
-        pygame.draw.oval(surface, self.color, self.bounds)
-
-    def update(self):
-        dx = 0
-        dy = 0
-        if self.mouse_button_pressed:
-            self.strike_movement()
-        else:
-            self.move(dx, dy)
 
 
 class Pen(GameObject):
-    def __init__(self, x, y, w, h, owner, vel = (0, 0)):
+    def __init__(self, x, y, w, h, owner):
         GameObject.__init__(self, x, y, w, h)
         self.color = choice([colors.BLACK, colors.RED2])
-        self.r = (w ** 2 + h ** 2) ** 0.5
-        self.velocity = vel
+        self.owner = owner
         self.x = x
         self.y = y
+        self.r = (w ** 2 + h ** 2) ** 0.5
         self.mouse_button_pressed = False
-        self.owner = owner
 
     def draw(self, surface):
+        print(self.owner.x)
         pygame.draw.rect(surface, self.color, self.bounds)
 
     def handle(self, key, pos): #pos это координаты мыши
@@ -45,21 +26,31 @@ class Pen(GameObject):
         else:
             self.mouse_button_pressed = False
 
-    def update(self):
+    def update(self, p):
         if self.mouse_button_pressed:
-            a = pygame.mouse.get_pos()[0]
-            b = pygame.mouse.get_pos()[1]
-            if 615 < a < 640 and 0 < b < 15:
-                pygame.quit()
+            a = pygame.mouse.get_pos()[0] + 180
+            b = pygame.mouse.get_pos()[1] + 50
             a -= self.x
             b -= self.y
             line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
-            a = round(a / line_length)
-            b = round(b / line_length)
-            self.move(5*a, 5*b)
+            self.dx = round(5 * a / line_length)
+            self.dy = round(5 * b / line_length)
+            self.move(self.dx, self.dy)
+            b = True
+            for i in range(Karta.k):
+                if self.bounds.colliderect(Karta.map_rect[i]) == True:
+                    self.dx *= -1
+                    self.dy *= -1
+                    b = False
+                    break
+            if b:
+                self.dx = 0
+                self.dy = 0
+            self.move(self.dx, self.dy)
+
         else:
-            if self.x != self.owner.x + 20 or self.y != self.owner.y:
-                self.move(self.owner.x + 20 - self.x, self.owner.y - self.y)
+            if self.x != p.x + 10 or self.y != p.y:
+                self.move(p.x + 10 - self.x, p.y - self.y)
             else:
                 self.move(0, 0)
 
@@ -78,59 +69,39 @@ class Pen(GameObject):
         else:
             pass
 
-    def initialization_of_attack(self):
-        r = pygame.mouse.get_pos()
-        c = r[0] - self.x
-        d = r[1] - self.y
-        movement_vector = [c, d]
-        return movement_vector
+class Bullet(GameObject):
+    def __init__(self, x, y, w, h, dots):
+        GameObject.__init__(self, x, y, w, h)
+        self.color = choice([colors.BLACK, colors.RED2])
+        self.r = (w ** 2 + h ** 2) ** 0.5
+        self.mouse_button_pressed = False
+        self.live = 0
+        self.dots = dots
 
+    def draw(self, surface):
+        pygame.draw.rect(surface, self.color, self.bounds)
 
-    def strike_calculations(self):
-        mv = self.initialization_of_attack()
-        line_length = (a ** 2 + b ** 2) ** 0.5
-        cos = a / line_length
-        sin = b / line_length
-        norm_mv = [cos, sin]
-        return norm_mv
+    def hittests(self, en):
+        if pygame.Rect.colliderect(self, en):
+            en.live = 0
+            self.live = 0
+            self.kill()
+        else:
+            self.live = 1
 
-#<<<<<<< HEAD
-##    def strike_movement(self):
-##<<<<<<< HEAD
-##        #if pygame.mouse.get_pressed()[0]:
-##            mv = self.strike_calculations()
-##            dx = mv[0]
-##            dy = mv[1]
-##            self.move(dx, dy)
-##        #else:
-##           # pass
-##=======
-##        mv = self.strike_calculations()
-##        dx = mv[0]
-##        dy = mv[1]
-##        self.move(dx, dy)
-##>>>>>>> df38d0490200f04b23912a12088960fd7545a497
-#=======
- #   def strike_movement(self):
-#<<<<<<< HEAD
-#<<<<<<< HEAD
-        #if pygame.mouse.get_pressed()[0]:
-##            mv = self.strike_calculations()
-##            dx = mv[0]
-##            dy = mv[1]
-##            self.move(dx, dy)
-##        #else:
-##           # pass
-###=======
-####        mv = self.strike_calculations()
-####        dx = mv[0]
-####        dy = mv[1]
-####        self.move(dx, dy)
-###>>>>>>> df38d0490200f04b23912a12088960fd7545a497
-###=======
-##        mv = self.strike_calculations()
-##        a = a
-##        b = b
-##        self.move(a, b)
-#>>>>>>> 93e08b697c4b9b8865f47de78ec9081315783ba9
-#>>>>>>> be47813c604646ed9d98f8c888dc6ef6d57dba87
+    def m_position(self):
+        a = pygame.mouse.get_pos()[0] + 180
+        b = pygame.mouse.get_pos()[1] + 50
+        mp = (a, b)
+        return mp
+
+    def update(self, p):
+        dots = self.dots
+        a = dots[0]
+        b = dots[1]
+        a -= self.x
+        b -= self.y
+        line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
+        a = round(5 * a / line_length)
+        b = round(5 * b / line_length)
+        self.move(a, b)

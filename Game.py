@@ -14,7 +14,6 @@ import weapon
 class Game():
       def __init__(self, surface):
             
-            #print(c.caption)
             self.surfaceh = surface
 #<<<<<<< HEAD
             self.surface = pygame.display.set_mode((c.widht, c.height), (pygame.NOFRAME and pygame.FULLSCREEN))
@@ -35,7 +34,6 @@ class Game():
             self.mouse_handlers = defaultdict(list)
             self.game_over = False
             self.p = None
-#<<<<<<< HEAD
             self.pause_game = None
             #self.shina[x].append(0)
             #self.shina[y].append(0)
@@ -106,7 +104,7 @@ class Game():
 
       def create_poligon(self):
         global poligonn
-        poligonn = poligon.Poligon(500, 250, 20, 20, (100, 100,100), 5 , self.shina )
+        poligonn = poligon.Poligon(500, 250, 20, 20, (100, 100,100), 5)
         self.keydown_handlers[pygame.K_LEFT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(poligonn.handle)
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)

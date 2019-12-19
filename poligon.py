@@ -231,6 +231,7 @@ class Enemies(Poligon):
 
         pygame.draw.rect(surface, self.color, self.bounds)
 
+
     def update(self, p, deltax, deltay):
 
         self.attack = p
@@ -239,18 +240,16 @@ class Enemies(Poligon):
 
         self.dy = 0
 
-        if ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
+        if 5 <= ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
             ro = ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5
 
             x = (self.attack[0] - self.x) / ro
 
             y = (self.attack[1] - self.y) / ro
 
-            self.dx = round(1 * x)
-
-            self.dy = round(1 * y)
-
-        self.move(self.dx, self.dy)
+            self.dx = 1 * x // 1
+            self.dy = 1 * y // 1
+            self.move(self.dx, self.dy)
 
         b = True
 
@@ -282,4 +281,10 @@ class Enemies(Poligon):
 
     def handle(self, key):
 
+
+
         pass
+
+x = 0
+y = 0
+

@@ -91,15 +91,15 @@ class Game():
 
         self.exit_game = exit_game = pygame.rect.Rect(x, y, w, h)
 
-        pygame.draw.rect(self.surfaceh, (100, 0, 0), exit_game)
+        pygame.draw.rect(self.surfaceh, (200, 0, 0), exit_game)
 
-        self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('XXX', False, (200, 100, 50)), (x, y))
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render(' Exit', False, (0, 0, 0)), (x, y))
 
-        self.pause_game = pause_game = pygame.rect.Rect(x - 25, y, w + 5, h)
+        self.pause_game = pause_game = pygame.rect.Rect(x - 27, y, w + 7, h)
 
-        pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_game)
+        pygame.draw.rect(self.surfaceh, (0, 0, 200), pause_game)
 
-        self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render('Pause', False, (200, 100, 50)), (x - 25, y))
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render(' Pause', False, (255, 255, 255)), (x - 27, y))
 
 
 
@@ -167,25 +167,26 @@ class Game():
 
     def pause(self):
 
-        pause_menu = pygame.rect.Rect(300, 150, 90, 45)
+        pause_menu = pygame.rect.Rect(280, 150, 90, 45)
+        pygame.draw.rect(self.surfaceh, (0, 200, 0), pause_menu)
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 40).render('Go on', False, (0, 50, 0)), (280, 150))
 
-        pygame.draw.rect(self.surfaceh, (0, 100, 0), pause_menu)
-
-        self.surfaceh.blit(pygame.font.SysFont(c.font, 40).render('Go on', False, (200, 100, 50)), (300, 150))
+        exit_menu = pygame.rect.Rect(280, 200, 90, 45)
+        pygame.draw.rect(self.surfaceh, (200, 10, 0), exit_menu)
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 40).render('  Exit', False, (0, 0, 0)), (280, 200))
 
         pygame.display.update()
 
         i = 0
 
         while i != 1:
-
             for event in pygame.event.get():
-
                 if event.type == pygame.MOUSEBUTTONDOWN:
-
                     if pause_menu.collidepoint(event.pos):
-
                         i = 1
+                    elif exit_menu.collidepoint(event.pos):
+                        pygame.quit()
+                        sys.exit()
 
     def create_bullet(self, pos):
         p = self.shina[poligon][0].bounds

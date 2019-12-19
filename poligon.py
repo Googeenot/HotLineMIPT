@@ -267,16 +267,28 @@ class Enemies(Poligon):
 
         pygame.draw.rect(surface, self.color, self.bounds)
 
+<<<<<<< HEAD
+    def update(self, p):
+
+=======
 
     def update(self, p, deltax, deltay):
 
+>>>>>>> c0db51ee5458ca83e76bb2b6bf0cb19b2bd2ac05
         self.attack = p
 
         self.dx = 0
 
         self.dy = 0
+<<<<<<< HEAD
+
+
+        if ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
+
+=======
 
         if 5 <= ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
+>>>>>>> c0db51ee5458ca83e76bb2b6bf0cb19b2bd2ac05
             ro = ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5
 
             x = (self.attack[0] - self.x) / ro
@@ -287,38 +299,46 @@ class Enemies(Poligon):
             self.dy = 1 * y // 1
             self.move(self.dx, self.dy)
 
+<<<<<<< HEAD
+
+            b = True
+=======
         b = True
+>>>>>>> c0db51ee5458ca83e76bb2b6bf0cb19b2bd2ac05
 
-        for i in range(Karta.k):
+            for i in range(Karta.k):
 
-            if self.bounds.colliderect(Karta.map_rect[i]):
-                self.moving_left = False
+                if self.bounds.colliderect(Karta.map_rect[i]):
+                    self.moving_left = False
 
-                self.moving_right = False
+                    self.moving_right = False
 
-                self.moving_up = False
+                    self.moving_up = False
 
-                self.moving_down = False
+                    self.moving_down = False
 
-                self.dx *= -1
+                    self.dx *= -1
 
-                self.dy *= -1
+                    self.dy *= -1
 
-                b = False
+                    b = False
 
-                break
+                    break
 
-        if b:
-            self.dx = 0
+            if b:
+                self.dx = 0
 
-            self.dy = 0
+                self.dy = 0
 
-        self.move(self.dx, self.dy)
+            self.move(self.dx, self.dy)
 
     def handle(self, key):
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> c0db51ee5458ca83e76bb2b6bf0cb19b2bd2ac05
         pass
 
 x = 0

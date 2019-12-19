@@ -12,6 +12,114 @@ import map
 import weapon
 #>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
 class Game():
+<<<<<<< HEAD
+
+    def __init__(self, surface):
+
+
+
+        # print(c.caption)
+
+        self.surfaceh = surface
+
+        # <<<<<<< HEAD
+
+        self.surface = pygame.display.set_mode((c.widht, c.height), (pygame.NOFRAME and pygame.FULLSCREEN))
+
+        # =======
+
+        self.surface = pygame.Surface((c.widhtkarta, c.heightkarta))
+
+
+
+        # >>>>>>> d70afdfbf1f40f2dd0d5c0bf5fb9d3ff3f57755f
+
+        self.frame_rate = c.frame_rate
+
+        self.clock = pygame.time.Clock()
+
+        print(self.clock)
+
+        self.objects = []
+
+
+
+        self.velocity = [0, 0]
+
+
+
+        self.shina = defaultdict(list)
+
+        self.keydown_handlers = defaultdict(list)
+
+        self.keyup_handlers = defaultdict(list)
+
+        self.mouse_handlers = defaultdict(list)
+
+        self.game_over = False
+
+        self.p = None
+
+        # <<<<<<< HEAD
+
+        self.pause_game = None
+
+
+
+        self.dx = 0
+
+        self.dy = 0
+
+
+
+    # =======
+
+    # >>>>>>> 0d69b4ec636b4ba156815197162ca66d105c8009
+
+    def menu(self):
+
+        x = 620
+
+        y = 0
+
+        w = 20
+
+        h = 13
+
+        self.exit_game = exit_game = pygame.rect.Rect(x, y, w, h)
+
+        pygame.draw.rect(self.surfaceh, (200, 0, 0), exit_game)
+
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render(' Exit', False, (0, 0, 0)), (x, y))
+
+        self.pause_game = pause_game = pygame.rect.Rect(x - 27, y, w + 7, h)
+
+        pygame.draw.rect(self.surfaceh, (0, 0, 200), pause_game)
+
+        self.surfaceh.blit(pygame.font.SysFont(c.font, 10).render(' Pause', False, (255, 255, 255)), (x - 27, y))
+
+
+
+    def update(self):
+
+        for i in self.objects:
+
+            i.update(self.shina[poligon][0].bounds)
+
+
+
+
+    def draw(self):
+
+        for i in self.objects:
+
+            i.draw(self.surface)
+
+
+
+    def handle_events(self):
+
+=======
       def __init__(self, surface):
             
             self.surfaceh = surface
@@ -68,6 +176,7 @@ class Game():
 
                   
       def handle_events(self):
+>>>>>>> c0db51ee5458ca83e76bb2b6bf0cb19b2bd2ac05
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

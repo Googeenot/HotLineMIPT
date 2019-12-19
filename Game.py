@@ -5,23 +5,23 @@ import config as c
 import poligon
 import Enemies
 
-#<<<<<<< HEAD
+
 import map
-#=======
+
 
 import weapon
-#>>>>>>> 71f9dde31187ac4565402a9121e6687d84b23bf9
+
 class Game():
 
       def __init__(self, surface):
             
             self.surfaceh = surface
-#<<<<<<< HEAD
+
             self.surface = pygame.display.set_mode((c.widht, c.height), (pygame.NOFRAME and pygame.FULLSCREEN))
-#=======
+
             self.surface =  pygame.Surface((c.widhtkarta, c.heightkarta))
 
-#>>>>>>> d70afdfbf1f40f2dd0d5c0bf5fb9d3ff3f57755f
+
             self.frame_rate = c.frame_rate
             self.clock = pygame.time.Clock()
             print(self.clock)
@@ -59,7 +59,7 @@ class Game():
 
       def update(self, ):
           for i in self.objects:
-              i.update(self.shina[poligon][0].bounds, self.dx, self.dy)
+              i.update(self.shina, self.dx, self.dy)
 
 
 
@@ -88,7 +88,7 @@ class Game():
                                 pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers[event.type]:
 
-                        handler(event.type, event.pos, event.button, self.shina[poligon][0])
+                        handler(event.type, event.pos, event.button, self.shina[0][0])
                         
                 if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
                     self.pause()
@@ -123,9 +123,9 @@ class Game():
                         sys.exit()
 
       def create_bullet(self, pos):
-        p = self.shina[poligon][0].bounds
-        x = self.shina[poligon][0].bounds[0] + self.dx
-        y = self.shina[poligon][0].bounds[1] + self.dy
+        p = self.shina[0][0].bounds
+        x = self.shina[0][0].bounds[0] + self.dx
+        y = self.shina[0][0].bounds[1] + self.dy
         pos = list(pos)
         pos[0] += x - c.widht/2 
         pos[1] += y - c.height/2 
@@ -143,21 +143,15 @@ class Game():
         self.keydown_handlers[pygame.K_UP].append(poligonn.handle)
         self.keydown_handlers[pygame.K_DOWN].append(poligonn.handle)
         self.objects.append(poligonn)
-        
-        #self.keydown_handlers[pygame.K_DOWN]
-            
-        
-##        self.keyup_handlers[pygame.K_LEFT].append(poligonn.handle)
-##        self.keyup_handlers[pygame.K_RIGHT].append(poligonn.handle)
-#<<<<<<< HEAD
-        self.shina[poligon].append(poligonn)
+
+        self.shina[0].append(poligonn)
 ##        print(self.shina[poligon][0][0])
         self.objects.append(poligonn)
 
       def create_enemies(self):
         r_en = []
         for i in range(Enemies.k_en):
-            r_en.append(poligon.Enemies(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5, i, self.shina[poligon][0].bounds))
+            r_en.append(poligon.Enemies(Enemies.b[i][0], Enemies.b[i][1], 10, 10, (100, 100, 100), 5, i, self.shina[0][0].bounds))
         #self.keydown_handlers[pygame.K_LEFT].append(r_en[i].handle)
         #self.keydown_handlers[pygame.K_RIGHT].append(r_en[i].handle)
         #self.keydown_handlers[pygame.K_UP].append(r_en[i].handle)
@@ -189,7 +183,7 @@ class Game():
 ##          self.create_pen()
 
       def create_gun(self):
-            gun = weapon.Gun(550, 250, 50, 50, self.shina[poligon][0].bounds)
+            gun = weapon.Gun(550, 250, 50, 50, self.shina[0][0].bounds)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(gun.handle)
             self.mouse_handlers[pygame.MOUSEBUTTONUP].append(gun.handle)
             self.objects.append(gun)
@@ -213,10 +207,10 @@ class Game():
       def movecamera(self):
             dx = -2
             dy = -2
-            if self.shina[poligon][0].moving_left:
+            if self.shina[0][0].moving_left:
                   if self.dx < 24:
                         self.dx -=dx
-            elif self.shina[poligon][0].moving_right:
+            elif self.shina[0][0].moving_right:
                   if self.dx> -24:
                         self.dx +=dx
             else:
@@ -226,10 +220,10 @@ class Game():
                   elif self.dx<0:
                         self.dx-=dx
                   
-            if self.shina[poligon][0].moving_up:
+            if self.shina[0][0].moving_up:
                   if self.dy < 24:
                         self.dy -=dy
-            elif self.shina[poligon][0].moving_down:
+            elif self.shina[0][0].moving_down:
                   if self.dy > -24:
                         self.dy +=dy
             else:
@@ -239,9 +233,9 @@ class Game():
                         self.dy-=dy
                   
                   
-            x= c.widht/2 - (self.shina[poligon][0].bounds[0]+self.dx)
+            x= c.widht/2 - (self.shina[0][0].bounds[0]+self.dx)
             
-            y= c.height/2 - (self.shina[poligon][0].bounds[1]+self.dy)
+            y= c.height/2 - (self.shina[0][0].bounds[1]+self.dy)
             self.surfaceh.blit(self.surface, (x, y))
 
       def run(self):
@@ -253,8 +247,6 @@ class Game():
             self.create_objects()
             self.background_image = pygame.image.load(c.map)
 
-            #self.clock.tick(300000)
-            #self.surface.blit(self.background_image, (-420, 0))
             while not self.game_over:
 
                   self.surface.blit(self.background_image, (0, 0))
@@ -267,7 +259,6 @@ class Game():
 
                   pygame.display.update()
                   self.clock.tick(self.frame_rate)
-            #self.clock.tick(30000)
       def uploadlevel(self):
             pass
 

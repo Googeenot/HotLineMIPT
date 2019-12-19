@@ -93,7 +93,6 @@ class Gun:
             surface.blit(self.image, (self.bounds[0]+25, self.bounds[1]+25))
             
     def handle(self, key, pos, button, owner): #pos это координаты мыши
-        print(button)
         self.owner = owner
         if  self.beowner:
             self.bounds[0] = self.owner.bounds[0]
@@ -125,9 +124,10 @@ class Bullet(GameObject):
             en.live = 0
             self.live = 0
             self.kill()
-        else:
             self.live = 1
-
+    def delete(self):
+        pass
+        
     def m_position(self):
         a = pygame.mouse.get_pos()[0] + 180
         b = pygame.mouse.get_pos()[1] + 50
@@ -136,6 +136,7 @@ class Bullet(GameObject):
 
 
     def update(self, p, deltax, deltay):
+        
         if self.mo:
             dots = self.dots
             a = dots[0]

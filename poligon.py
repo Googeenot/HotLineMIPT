@@ -151,9 +151,8 @@ class Poligon(GameObject):
 
     def update(self, p, deltax, deltay):
         x, y = pygame.mouse.get_pos()
-
-        x = x - c.widht/2 + p[0] - deltax
-        y = y - c.height/2 + p[1] - deltay
+        x = x - c.widht/2 + p[0][0].bounds[0] - deltax
+        y = y - c.height/2 + p[0][0].bounds[1] - deltay
 
         
         self.angle = - 180*math.atan2(y-self.bounds[1]-10, (x-self.bounds[0]-10))/math.pi +90
@@ -259,7 +258,7 @@ class Enemies(Poligon):
 
         self.attack = p
 
-        self.r_attack = 100
+        self.r_attack = 200
 
         self.k = k
 
@@ -272,7 +271,7 @@ class Enemies(Poligon):
     def update(self, p, deltax, deltay):
 
 
-        self.attack = p
+        self.attack = p[0][0].bounds
 
         self.dx = 0
 
@@ -284,7 +283,7 @@ class Enemies(Poligon):
 
 
 
-        if 5 <= ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
+        if  ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
 
             ro = ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5
 
@@ -292,8 +291,9 @@ class Enemies(Poligon):
 
             y = (self.attack[1] - self.y) / ro
 
-            self.dx = 1 * x // 1
-            self.dy = 1 * y // 1
+            self.dx = round(1 * x) 
+            self.dy = round(1 * y)
+            
             self.move(self.dx, self.dy)
 
 

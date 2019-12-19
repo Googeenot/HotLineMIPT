@@ -5,7 +5,7 @@ import config as c
 import Game
 class HotlineMIPT:
       def __init__(self):
-            #print(c.caption)
+
             pygame.init()
             pygame.font.init()
             pygame.display.set_caption(c.caption)
@@ -16,29 +16,9 @@ class HotlineMIPT:
             print(self.clock)
             self.objects = []
             self.clock = pygame.time.Clock()
-            #pygame.cursors.load_xbm(c.cursor, c.cursor)
 
-            
-##            self.keydown_handlers = defaultdict(list)
-##            self.keyup_handlers = defaultdict(list)
-##            self.mouse_handlers = []
-            
             self.game_over = False
 
-##      def handle_events(self):
-##        for event in pygame.event.get():
-##            if event.type == pygame.QUIT:
-##                pygame.quit()
-##                sys.exit()
-##            elif event.type == pygame.KEYDOWN:
-##                for handler in self.keydown_handlers[event.key]:
-##                    handler(event.key)
-##            elif event.type == pygame.KEYUP:
-##                for handler in self.keydown_handlers[event.key]:
-##                    handler(event.key)
-##            elif event.type in (pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP, pygame.MOUSEMOTION):
-##                for handler in self.mouse_handlers:
-##                    handler(event.type, event.pos)
       def zastavka(self):
             self.background_image = pygame.image.load(c.back_image_filename)
             self.surface.blit(self.background_image, (-420, 0))
@@ -47,9 +27,7 @@ class HotlineMIPT:
             self.clock.tick(30)
 
       def menu(self):
-            #self.background_image = pygame.image.load(c.back_image)
-            #self.surface.blit(self.background_image, (-420, 0))
-            #pygame.display.update()
+
             start_game = pygame.rect.Rect(100, 40, 90, 50)
             exit_game = pygame.rect.Rect(440, 40, 100, 50)
             pygame.draw.rect(self.surface, (0, 100, 0) , start_game)

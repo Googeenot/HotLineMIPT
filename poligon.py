@@ -35,6 +35,8 @@ class Poligon(GameObject):
         self.moving_up = False
 
         self.moving_down = False
+        
+        self.beweapon = True
 
         self.live = 1
 
@@ -53,6 +55,13 @@ class Poligon(GameObject):
         self.imagegoright = pygame.transform.scale(self.imagegoright, (40, 40))
         self.imagegoleft = pygame.image.load(c.goleft)
         self.imagegoleft = pygame.transform.scale(self.imagegoleft, (40, 40))
+
+        self.imagestopwithgun = pygame.image.load(c.stopwithgun)
+        self.imagestopwithgun = pygame.transform.scale(self.imagestopwithgun, (40, 40))
+        self.imagegorightwithgun = pygame.image.load(c.gorightwithgun)
+        self.imagegorightwithgun = pygame.transform.scale(self.imagegorightwithgun, (40, 40))
+        self.imagegoleftwithgun = pygame.image.load(c.goleftwithgun)
+        self.imagegoleftwithgun = pygame.transform.scale(self.imagegoleftwithgun, (40, 40))
         self.time = 0
         
         self.angle = 0
@@ -62,31 +71,58 @@ class Poligon(GameObject):
 
     def draw(self, surface):
         #pygame.draw.rect(surface, self.color, self.bounds)
-        if (self.moving_left or self.moving_right or self.moving_up or self.moving_down):
+        if not self.beweapon:
+            if (self.moving_left or self.moving_right or self.moving_up or self.moving_down):
+                
+                if self.nonestop:
+                    self.image = self.imagestop
+                    if ( pygame.time.get_ticks() - self.time)>100:
+                        self.time = pygame.time.get_ticks()
+                        self.nonestop = False
+
+                        
+                elif self.left_right:
+                    self.image =  self.imagegoright
+                    if ( pygame.time.get_ticks() - self.time)>100:
+                        self.time = pygame.time.get_ticks()
+                        self.left_right = not self.left_right
+                        self.nonestop = True
+
+                else:
+                    self.image =  self.imagegoleft
+                    if ( pygame.time.get_ticks() - self.time)>100:
+                        self.time = pygame.time.get_ticks()
+                        self.left_right = not self.left_right
+                        self.nonestop = True
+
+            else:    
+                    self.image = self.imagestop
+        else:
+            if (self.moving_left or self.moving_right or self.moving_up or self.moving_down):
+                
+                if self.nonestop:
+                    self.image = self.imagestopwithgun
+                    if ( pygame.time.get_ticks() - self.time)>100:
+                        self.time = pygame.time.get_ticks()
+                        self.nonestop = False
+
+                        
+                elif self.left_right:
+                    self.image =  self.imagegorightwithgun
+                    if ( pygame.time.get_ticks() - self.time)>100:
+                        self.time = pygame.time.get_ticks()
+                        self.left_right = not self.left_right
+                        self.nonestop = True
+
+                else:
+                    self.image =  self.imagegoleftwithgun
+                    if ( pygame.time.get_ticks() - self.time)>100:
+                        self.time = pygame.time.get_ticks()
+                        self.left_right = not self.left_right
+                        self.nonestop = True
+            else:    
+                    self.image = self.imagestopwithgun
             
-            if self.nonestop:
-                self.image = self.imagestop
-                if ( pygame.time.get_ticks() - self.time)>100:
-                    self.time = pygame.time.get_ticks()
-                    self.nonestop = False
-
-                    
-            elif self.left_right:
-                self.image =  self.imagegoright
-                if ( pygame.time.get_ticks() - self.time)>100:
-                    self.time = pygame.time.get_ticks()
-                    self.left_right = not self.left_right
-                    self.nonestop = True
-
-            else:
-                self.image =  self.imagegoleft
-                if ( pygame.time.get_ticks() - self.time)>100:
-                    self.time = pygame.time.get_ticks()
-                    self.left_right = not self.left_right
-                    self.nonestop = True
-
-        else:    
-                self.image = self.imagestop
             
  
         surface.blit(pygame.transform.rotate(self.image, self.angle), (self.bounds[0]-10, self.bounds[1]-10))
@@ -120,7 +156,7 @@ class Poligon(GameObject):
         y = y - c.height/2 + p[1] - deltay
 
         
-        self.angle = - 180*math.atan2(y-self.bounds[1]+10, (x-self.bounds[0]-10))/math.pi +90
+        self.angle = - 180*math.atan2(y-self.bounds[1]-10, (x-self.bounds[0]-10))/math.pi +90
 
 
 

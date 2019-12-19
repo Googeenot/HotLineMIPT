@@ -86,12 +86,13 @@ class Game():
                                 pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers[event.type]:
                         handler(event.type, event.pos)
+                        
                 if event.type == pygame.MOUSEBUTTONDOWN and self.pause_game.collidepoint(event.pos):
                     self.pause()
                 elif event.type == pygame.MOUSEBUTTONDOWN and self.exit_game.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
-                else:
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     self.create_bullet(event.pos)
 
 
@@ -123,11 +124,12 @@ class Game():
         x = self.shina[poligon][0].bounds[0] + self.dx
         y = self.shina[poligon][0].bounds[1] + self.dy
         pos = list(pos)
-        pos[0] += x - c.widht/2
-        pos[1] += y - c.height/2
+        pos[0] += x - c.widht/2 
+        pos[1] += y - c.height/2 
         b = weapon.Bullet(p.x + 5, p.y + 5, 3, 3, pos)
         self.objects.append(b)
 
+      
 
 
       def create_poligon(self):
@@ -183,8 +185,14 @@ class Game():
           self.create_enemies()
           self.create_pen()
 
+      def create_gun(self):
+            gun = weapon.Gun(550, 250, 50, 50, self.p)
+            self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(gun.handle)
+            self.mouse_handlers[pygame.MOUSEBUTTONUP].append(gun.handle)
+            self.objects.append(gun)
+
       def create_pen(self):
-            pen = weapon.Pen(550, 250, 10, 10, self.p)
+            pen = weapon.Gun(550, 250, 10, 10, self.p)
             self.mouse_handlers[pygame.MOUSEBUTTONDOWN].append(pen.handle)
             self.mouse_handlers[pygame.MOUSEBUTTONUP].append(pen.handle)
             self.objects.append(pen)
@@ -195,6 +203,7 @@ class Game():
 
       def create_objects(self):
             self.create_poligon()
+            self.create_gun()
             #self.create_pen()
             self.create_enemies()
             #self.create_rival()

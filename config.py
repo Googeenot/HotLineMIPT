@@ -14,6 +14,12 @@ font = 'Arial'
 stop = 'media//stop.png'
 goright = 'media//goright.png'
 goleft = 'media//goleft.png'
+
+gun = 'media//gun.png'
+
+stopwithgun = 'media//stopwithgun.png'
+gorightwithgun = 'media//gowithgunright.png'
+goleftwithgun = 'media//gowithgunleft.png'
 #<<<<<<< HEAD
 map = 'media//map.png'
 #=======

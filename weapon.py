@@ -3,6 +3,7 @@ from GameObject import GameObject
 from random import choice, randrange as rnd
 import colors
 import Karta
+import config as c
 
 
 
@@ -17,7 +18,6 @@ class Pen(GameObject):
         self.mouse_button_pressed = False
 
     def draw(self, surface):
-        print(self.owner.x)
         pygame.draw.rect(surface, self.color, self.bounds)
 
     def handle(self, key, pos): #pos это координаты мыши
@@ -69,9 +69,41 @@ class Pen(GameObject):
         else:
             pass
 
+        
+
+class Gun:
+    def __init__(self, x, y, w, h, owner):
+        GameObject.__init__(self, x, y, w, h)
+        self.owner = owner
+        self.beowner = False
+        self.image = pygame.image.load(c.gun)
+        self.image = pygame.transform.scale(self.image, (40, 40))
+        
+    def move(self, dx, dy):  
+        self.bounds = self.bounds.move(dx, dy)
+
+    def update(self, p, deltax, deltay):
+
+            self.dx = 0
+            self.dy = 0
+            self.move(self.dx, self.dy)
+
+    def draw(self, surface):
+        if not self.beowner:
+            surface.blit(self.image, (self.bounds[0]-25, self.bounds[1]-25))
+            
+    def handle(self, key, pos): #pos это координаты мыши
+        if key == pygame.MOUSEBUTTONDOWN:
+            self.mouse_button_pressed = True
+        else:
+            self.mouse_button_pressed = False
+
+
+            
+
 class Bullet(GameObject):
     def __init__(self, x, y, w, h, dots):
-        GameObject.__init__(self, x, y, w, h)
+        GameObject.__init__(self, x+10, y+10, w, h)
         self.color = choice([colors.BLACK, colors.RED2])
         self.r = (w ** 2 + h ** 2) ** 0.5
         self.mouse_button_pressed = False

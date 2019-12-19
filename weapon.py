@@ -76,6 +76,7 @@ class Bullet(GameObject):
         self.r = (w ** 2 + h ** 2) ** 0.5
         self.mouse_button_pressed = False
         self.live = 0
+        self.mo = True
         self.dots = dots
 
     def draw(self, surface):
@@ -96,12 +97,20 @@ class Bullet(GameObject):
         return mp
 
     def update(self, p):
-        dots = self.dots
-        a = dots[0]
-        b = dots[1]
-        a -= self.x
-        b -= self.y
-        line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
-        a = round(5 * a / line_length)
-        b = round(5 * b / line_length)
-        self.move(a, b)
+        if self.mo:
+            dots = self.dots
+            a = dots[0]
+            b = dots[1]
+            a -= self.x
+            b -= self.y
+            line_length = max(1, (a ** 2 + b ** 2) ** 0.5)
+            a = round(5 * a / line_length)
+            b = round(5 * b / line_length)
+
+
+            for i in range(Karta.k):
+                if self.bounds.colliderect(Karta.map_rect[i]):
+                    self.mo = False
+                    break
+            self.move(a, b)
+

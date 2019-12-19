@@ -176,74 +176,58 @@ class Enemies(Poligon):
         pygame.draw.rect(surface, self.color, self.bounds)
 
     def update(self, p):
-<<<<<<< HEAD
-=======
 
->>>>>>> e71c9e9905d5dea22e0bd3c315708e8c3fd4c3bd
         self.attack = p
 
         self.dx = 0
 
         self.dy = 0
-<<<<<<< HEAD
-        if 5 <= ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
-=======
+
 
         if ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5 <= self.r_attack:
->>>>>>> e71c9e9905d5dea22e0bd3c315708e8c3fd4c3bd
+
             ro = ((self.x - self.attack[0]) ** 2 + (self.y - self.attack[1]) ** 2) ** 0.5
 
             x = (self.attack[0] - self.x) / ro
 
             y = (self.attack[1] - self.y) / ro
-<<<<<<< HEAD
+
             self.dx = 1 * x // 1
             self.dy = 1 * y // 1
             self.move(self.dx, self.dy)
-=======
 
-            self.dx = round(1 * x)
 
-            self.dy = round(1 * y)
+            b = True
 
-        self.move(self.dx, self.dy)
->>>>>>> e71c9e9905d5dea22e0bd3c315708e8c3fd4c3bd
+            for i in range(Karta.k):
 
-        b = True
+                if self.bounds.colliderect(Karta.map_rect[i]):
+                    self.moving_left = False
 
-        for i in range(Karta.k):
+                    self.moving_right = False
 
-            if self.bounds.colliderect(Karta.map_rect[i]):
-                self.moving_left = False
+                    self.moving_up = False
 
-                self.moving_right = False
+                    self.moving_down = False
 
-                self.moving_up = False
+                    self.dx *= -1
 
-                self.moving_down = False
+                    self.dy *= -1
 
-                self.dx *= -1
+                    b = False
 
-                self.dy *= -1
+                    break
 
-                b = False
+            if b:
+                self.dx = 0
 
-                break
+                self.dy = 0
 
-        if b:
-            self.dx = 0
-
-            self.dy = 0
-
-        self.move(self.dx, self.dy)
+            self.move(self.dx, self.dy)
 
     def handle(self, key):
-<<<<<<< HEAD
         pass
 
 x = 0
 y = 0
-=======
 
-        pass
->>>>>>> e71c9e9905d5dea22e0bd3c315708e8c3fd4c3bd

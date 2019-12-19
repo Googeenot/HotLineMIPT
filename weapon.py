@@ -115,6 +115,7 @@ class Bullet(GameObject):
         self.live = 0
         self.mo = True
         self.dots = dots
+        self.time = 0
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.bounds)
@@ -127,6 +128,9 @@ class Bullet(GameObject):
             self.live = 1
     def delete(self):
         pass
+
+    def kill(self):
+        pass
         
     def m_position(self):
         a = pygame.mouse.get_pos()[0] + 180
@@ -136,7 +140,9 @@ class Bullet(GameObject):
 
 
     def update(self, p, deltax, deltay):
-        
+        self.time += 1
+        if self.time >= 100:
+            self.kill()
         if self.mo:
             dots = self.dots
             a = dots[0]
@@ -153,5 +159,6 @@ class Bullet(GameObject):
                     self.mo = False
                     break
             self.move(a, b)
+        return self.mo
 
 
